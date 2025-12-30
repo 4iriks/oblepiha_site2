@@ -1,20 +1,49 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Облепиха VPN 🌿
 
-# Run and deploy your AI Studio app
+Стильный и уютный лендинг для VPN сервиса.
 
-This contains everything you need to run your app locally.
+## 📸 Подготовка изображений
+Перед запуском убедитесь, что в корневой папке проекта лежат следующие файлы:
+- `logo.png` — логотип (примерно 512x512)
+- `hero-image.png` — главная иллюстрация для первого экрана
 
-View your app in AI Studio: https://ai.studio/apps/drive/1-w1zT_b3WuZimB4KKTdLJLOBkBSu2XlL
+## 🚀 Локальный запуск (Node.js)
 
-## Run Locally
+1. **Установите зависимости:**
+   ```bash
+   npm install
+   ```
 
-**Prerequisites:**  Node.js
+2. **Запустите сервер для разработки:**
+   ```bash
+   npm run dev
+   ```
+   Приложение будет доступно по адресу: `http://localhost:3000`
 
+3. **Сборка для продакшена:**
+   ```bash
+   npm run build
+   ```
+   Готовые файлы появятся в папке `dist/`.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🐳 Запуск через Docker
+
+Мы используем многоэтапную сборку (Node.js для билда + Nginx для раздачи статики).
+
+1. **Соберите образ:**
+   ```bash
+   docker build -t oblepiha-vpn .
+   ```
+
+2. **Запустите контейнер:**
+   ```bash
+   docker run -d -p 8080:80 --name oblepiha-app oblepiha-vpn
+   ```
+   Приложение будет доступно по адресу: `http://localhost:8080`
+
+## 🛠 Технологии
+- **React 19** + **TypeScript**
+- **Vite** (быстрая сборка)
+- **Tailwind CSS** (стилизация)
+- **Nginx** (сервер для Docker)
+- **Google Fonts** & **Material Symbols**
