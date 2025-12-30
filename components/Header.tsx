@@ -1,4 +1,5 @@
 import React from 'react';
+import { IMAGE_PATHS } from '../constants/images';
 
 const Header: React.FC = () => {
   return (
@@ -7,7 +8,7 @@ const Header: React.FC = () => {
         <div className="flex items-center gap-3 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center relative transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
             <img 
-              src="./logo.png" 
+              src={IMAGE_PATHS.LOGO} 
               alt="Облепиха VPN Лого" 
               className="w-full h-full object-contain"
             />

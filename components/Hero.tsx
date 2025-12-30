@@ -1,4 +1,5 @@
 import React from 'react';
+import { IMAGE_PATHS } from '../constants/images';
 
 const Hero: React.FC = () => {
   return (
@@ -8,7 +9,7 @@ const Hero: React.FC = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-gradient-to-tr from-[#f7e9c6] via-[#e96029]/20 to-[#50674d]/10 rounded-full blur-[60px] md:blur-[100px] opacity-60"></div>
         <div className="relative z-10 w-full h-full transition-transform duration-700 hover:scale-105 flex items-center justify-center">
           <img 
-            src="./hero-image.png" 
+            src={IMAGE_PATHS.HERO} 
             alt="Облепиха VPN Иллюстрация" 
             className="w-full h-full object-contain drop-shadow-2xl"
           />

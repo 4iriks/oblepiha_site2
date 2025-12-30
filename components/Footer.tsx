@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { IMAGE_PATHS } from '../constants/images';
 
 const Footer: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
             <div className="flex items-center gap-3">
               <div className="w-12 h-12">
                 <img 
-                  src="logo.png" 
+                  src={IMAGE_PATHS.LOGO} 
                   alt="Облепиха VPN Лого" 
                   className="w-full h-full object-contain brightness-110"
                 />
@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
               <span className="text-2xl font-black tracking-tight">Облепиха VPN</span>
             </div>
             <p className="text-white/40 text-sm max-w-[280px] text-center md:text-left leading-relaxed">
-              Простой и надежный проводник в свободный интернет. Сделано с любовью к деталям.
+              Простой и надежный проводник в свободный интернет. Сделано с любовьи к деталям.
             </p>
           </div>
           
