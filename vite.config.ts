@@ -1,12 +1,7 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
+// без @tailwindcss/vite можно обойтись, если используешь postcss
 export default defineConfig({
-  base: './',
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-  },
-  server: {
-    port: 3000
-  }
-});
+  plugins: [react()],
+})

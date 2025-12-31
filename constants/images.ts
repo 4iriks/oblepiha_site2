@@ -1,10 +1,8 @@
-/**
- * Централизованное управление путями к изображениям
- * Все изображения переведены в формат .jpeg согласно запросу
- */
+import logoImg from '../images/logo.jpeg';
+import heroImg from '../images/hero-image.jpeg';
+
 export const IMAGE_PATHS = {
-  LOGO: './images/logo.jpeg',
-  HERO: './images/hero-image.jpeg',
-  // Можно добавить пути для мета-тегов или заглушек
-  FAVICON: './images/logo.jpeg',
+  LOGO: logoImg,
+  HERO: heroImg,
+  FAVICON: logoImg,
 };
