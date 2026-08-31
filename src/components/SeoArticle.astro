@@ -82,6 +82,26 @@ const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.s
                 ))}
               </ul>
             )}
+            {section.diagnostics && (
+              <div class="mt-6 grid gap-4">
+                {section.diagnostics.map((item) => (
+                  <div class="rounded-[1.5rem] border border-primary/5 bg-backgroundLight/70 p-5 md:grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)_minmax(0,1.15fr)] md:gap-6 md:p-6">
+                    <div>
+                      <p class="text-xs font-extrabold uppercase tracking-[0.12em] text-accent">Симптом</p>
+                      <p class="mt-2 font-black leading-snug text-primary">{item.symptom}</p>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                      <p class="text-xs font-extrabold uppercase tracking-[0.12em] text-primary/40">Что это обычно значит</p>
+                      <p class="mt-2 text-sm leading-relaxed text-primary/70 md:text-base">{item.meaning}</p>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                      <p class="text-xs font-extrabold uppercase tracking-[0.12em] text-secondary">Первое действие</p>
+                      <p class="mt-2 text-sm leading-relaxed text-primary/70 md:text-base">{item.action}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
             {section.note && (
               <div class="mt-6 flex items-start gap-3 rounded-2xl border border-secondary/15 bg-secondary/5 p-4 text-sm leading-relaxed text-primary/70 md:text-base">
                 <span class="material-symbols-outlined text-secondary">info</span>
@@ -112,9 +132,29 @@ const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.s
         </section>
       )}
 
+      {page.sources && page.sources.length > 0 && (
+        <details class="group mt-10 rounded-[1.5rem] border border-primary/5 bg-white/35" id="sources">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-bold text-primary/65">
+            На чём основана инструкция
+            <span class="material-symbols-outlined text-accent transition-transform group-open:rotate-180">expand_more</span>
+          </summary>
+          <div class="grid gap-2 border-t border-primary/5 px-5 py-4">
+            {page.sources.map((source) => (
+              <a href={source.href} target="_blank" rel="noopener noreferrer" class="focus-ring rounded-xl p-3 transition-colors hover:bg-card">
+                <span class="flex items-center gap-2 text-sm font-bold text-primary hover:text-accent">
+                  {source.title}
+                  <span class="material-symbols-outlined text-base">open_in_new</span>
+                </span>
+                <span class="mt-1 block text-xs leading-relaxed text-primary/50">{source.description}</span>
+              </a>
+            ))}
+          </div>
+        </details>
+      )}
+
       {page.promotional !== false && (
         <div class="mt-12">
-          <CtaBlock cluster={page.campaign} position="article_end" />
+          <CtaBlock title={page.ctaTitle} text={page.ctaText} cluster={page.campaign} position="article_end" />
         </div>
       )}
 
@@ -146,6 +186,7 @@ const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.s
         <nav class="mt-4 flex flex-col gap-3 text-sm font-semibold text-primary/65" aria-label="Содержание страницы">
           {page.sections.map((section, index) => <a href={`#section-${index + 1}`} class="transition-colors hover:text-accent">{section.title}</a>)}
           <a href="#faq" class="transition-colors hover:text-accent">Частые вопросы</a>
+          {page.sources && page.sources.length > 0 && <a href="#sources" class="transition-colors hover:text-accent">Источники</a>}
         </nav>
         {page.promotional !== false && (
           <a href={`https://t.me/oblepiha_vpn_bot?start=seo_${page.campaign}`} target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster={page.campaign} data-position="sidebar" class="focus-ring mt-6 flex w-full items-center justify-center rounded-2xl bg-primary px-4 py-3 font-bold text-backgroundLight transition-all hover:bg-accent">Открыть бота</a>
