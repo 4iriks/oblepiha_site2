@@ -1,4 +1,5 @@
-FROM nginx:alpine
+ARG BASE_IMAGE=nginx:alpine
+FROM ${BASE_IMAGE}
 
 RUN rm -rf /usr/share/nginx/html/*
 
