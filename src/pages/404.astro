@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<BaseLayout title="Страница не найдена — Облепиха VPN" description="Запрошенная страница не найдена." noindex>
+  <div class="flex min-h-screen flex-col bg-backgroundLight">
+    <SiteHeader compact />
+    <main class="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-6 py-20 text-center">
+      <img src="/images/logo.png" width="120" height="120" alt="" class="h-28 w-28" />
+      <p class="mt-6 text-sm font-black uppercase tracking-[0.2em] text-accent">Ошибка 404</p>
+      <h1 class="mt-4 text-4xl font-black text-primary md:text-6xl">Такой страницы нет</h1>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-primary/65">Вернитесь на главную или откройте центр помощи — там собраны инструкции по подключению и решению ошибок.</p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a href="/" class="rounded-2xl bg-primary px-7 py-4 font-bold text-backgroundLight hover:bg-accent">На главную</a>
+        <a href="/help/" class="rounded-2xl border border-primary/10 bg-card px-7 py-4 font-bold text-primary hover:border-accent/30">Центр помощи</a>
+      </div>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

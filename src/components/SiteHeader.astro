@@ -1,0 +1,33 @@
+---
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-primary/5 bg-backgroundLight/90 backdrop-blur-xl">
+  <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 md:py-4">
+    <a href="/" class="focus-ring group flex items-center gap-3 rounded-xl" aria-label="Облепиха VPN — на главную">
+      <span class="flex h-10 w-10 items-center justify-center md:h-12 md:w-12">
+        <img src="/images/logo.png" width="48" height="48" alt="Логотип Облепиха VPN" class="h-full w-full object-contain transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" />
+      </span>
+      <span class="text-lg font-extrabold tracking-tight text-primary md:text-2xl">Облепиха</span>
+    </a>
+    <nav class="flex items-center gap-2 sm:gap-4 md:gap-7" aria-label="Основная навигация">
+      {!compact && <a href="/#pricing" class="focus-ring hidden rounded-lg font-bold text-primary/70 transition-colors hover:text-primary sm:block">Тарифы</a>}
+      <a href="/help/" class="focus-ring hidden rounded-lg font-bold text-primary/70 transition-colors hover:text-primary md:block">Помощь</a>
+      <a href="/vpn-dlya-rossii/" class="focus-ring hidden rounded-lg font-bold text-primary/70 transition-colors hover:text-primary lg:block">VPN для России</a>
+      <a
+        href="https://t.me/oblepiha_vpn_bot"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-seo-cta
+        data-cluster="header"
+        data-position="header"
+        class="focus-ring rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-backgroundLight transition-all hover:bg-accent hover:shadow-glow sm:px-5 md:text-base"
+      >
+        Открыть бота
+      </a>
+    </nav>
+  </div>
+</header>

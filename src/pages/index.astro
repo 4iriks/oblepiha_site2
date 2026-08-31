@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Pricing from '../components/Pricing.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import { pageBySlug } from '../data/pages';
+
+const faq = [
+  { q: 'Как быстро я получу доступ?', a: 'Мгновенно. Сразу после оплаты вы получите код доступа и простые инструкции по настройке в Telegram-боте. Это занимает меньше минуты.' },
+  { q: 'Что такое белые списки?', a: 'Список разрешённых ресурсов, которым разрешено работать, в то время как всё остальное блокируется. Наши алгоритмы позволяют обходить эти ограничения, возвращая вам доступ к привычным сервисам.' },
+  { q: 'Какие устройства поддерживаются?', a: 'Мы поддерживаем iOS, Android, Windows, macOS и Android TV. Один аккаунт можно использовать на пяти устройствах.' },
+  { q: 'Сколько устройств можно подключить?', a: 'Один аккаунт можно одновременно использовать на 5 различных устройствах без ограничения по объёму трафика.' },
+];
+
+const guideSlugs = ['happ-vpn', 'happ-vpn/ne-rabotaet', 'v2raytun', 'vpn-dlya-youtube', 'vpn-dlya-iphone', 'vpn-ne-rabotaet'];
+const guides = guideSlugs.map((slug) => pageBySlug.get(slug)).filter(Boolean);
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Облепиха VPN',
+    applicationCategory: 'SecurityApplication',
+    operatingSystem: 'iOS, Android, Windows, macOS, Android TV',
+    description: 'VPN-сервис для России с подключением до 5 устройств и управлением через Telegram.',
+    url: 'https://oblepiha-vpn.ru/',
+    offers: { '@type': 'AggregateOffer', priceCurrency: 'RUB', lowPrice: '10', highPrice: '549', offerCount: '3' },
+    provider: { '@type': 'Organization', name: 'Облепиха VPN', url: 'https://oblepiha-vpn.ru/' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
+  },
+];
+---
+
+<BaseLayout title="Облепиха VPN — быстрый VPN для России" description="Облепиха VPN — подключение за несколько минут, 5 устройств и безлимитный трафик. Пробный период 3 дня за 10 ₽." canonical="/" structuredData={structuredData}>
+  <div class="relative flex min-h-screen flex-col overflow-x-hidden bg-backgroundLight">
+    <div class="pointer-events-none fixed inset-0 z-0">
+      <div class="absolute -left-[10%] -top-[10%] h-[50%] w-[50%] animate-pulse rounded-full bg-accent/10 blur-[120px]"></div>
+      <div class="absolute bottom-[10%] right-[-5%] h-[40%] w-[40%] rounded-full bg-secondary/10 blur-[100px]"></div>
+      <div class="absolute right-[10%] top-[30%] h-[25%] w-[25%] rounded-full bg-primary/5 blur-[80px]"></div>
+    </div>
+
+    <SiteHeader />
+    <main class="relative z-10 mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
+      <section class="flex min-h-[calc(100vh-84px)] flex-col items-center justify-center gap-8 pb-16 pt-8 lg:min-h-0 lg:flex-row lg:gap-20 lg:pb-24 lg:pt-12">
+        <div class="order-2 flex max-w-xl flex-col items-center gap-6 text-center lg:order-1 lg:items-start lg:text-left">
+          <h1 class="text-[2.5rem] font-black leading-none tracking-tight text-primary md:text-[4rem] lg:text-[4.8rem]">
+            <span class="mb-2 block text-xl font-extrabold text-primary/80 md:text-3xl">Минимум настроек —</span>
+            <span class="block leading-[1.03] text-accent">максимум<br />комфорта.</span>
+          </h1>
+          <p class="max-w-lg font-body text-lg font-medium leading-relaxed text-primary/70 md:text-xl">Простой и надёжный VPN-сервис с обходом белых списков. Подключение через Telegram и одна подписка для пяти устройств.</p>
+          <div class="mt-2 flex w-full max-w-[400px] flex-col items-center gap-3 lg:items-start">
+            <a href="#pricing" class="focus-ring flex h-16 w-full items-center justify-center rounded-2xl bg-primary text-xl font-bold text-backgroundLight shadow-soft transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-glow">Начать</a>
+            <span class="flex items-center gap-2 text-sm font-semibold text-secondary md:text-base"><span class="material-symbols-outlined text-xl">verified_user</span> 10 ₽ за 3 дня полного доступа</span>
+          </div>
+        </div>
+
+        <div class="order-1 flex aspect-square w-full max-w-[300px] items-center justify-center overflow-hidden rounded-[2.5rem] border border-primary/5 bg-white/40 p-7 shadow-soft md:max-w-[420px] md:p-10 lg:order-2 lg:max-w-[500px]">
+          <img src="/images/hero-image.png" width="520" height="520" alt="Облепиха VPN — иллюстрация сервиса" class="h-full w-full object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-105" fetchpriority="high" />
+        </div>
+      </section>
+
+      <section id="features" class="scroll-mt-24 py-12 md:py-20">
+        <div class="mb-10 text-center">
+          <p class="text-sm font-extrabold uppercase tracking-[0.18em] text-accent">Почему Облепиха</p>
+          <h2 class="mt-3 text-3xl font-black text-primary md:text-5xl">Всё нужное для подключения</h2>
+        </div>
+        <div class="grid gap-6 md:grid-cols-3 lg:gap-8">
+          <article class="rounded-[2.5rem] border border-primary/5 bg-card p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft">
+            <span class="material-symbols-outlined flex h-16 w-16 items-center justify-center rounded-2xl bg-backgroundLight text-4xl text-accent">rocket_launch</span>
+            <h3 class="mt-5 text-xl font-extrabold text-primary">Мгновенное подключение</h3>
+            <p class="mt-3 leading-relaxed text-primary/60">Несколько шагов в боте — и готовая подписка уже добавлена на устройство.</p>
+          </article>
+          <article class="rounded-[2.5rem] border border-primary/5 bg-card p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft">
+            <span class="material-symbols-outlined flex h-16 w-16 items-center justify-center rounded-2xl bg-backgroundLight text-4xl text-secondary">key</span>
+            <h3 class="mt-5 text-xl font-extrabold text-primary">Обход белых списков</h3>
+            <p class="mt-3 leading-relaxed text-primary/60">Наши разработчики нашли способ вернуть интернет даже когда в сети действуют ограничения.</p>
+          </article>
+          <article class="rounded-[2.5rem] border border-primary/5 bg-card p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft">
+            <span class="material-symbols-outlined flex h-16 w-16 items-center justify-center rounded-2xl bg-backgroundLight text-4xl text-primary">devices</span>
+            <h3 class="mt-5 text-xl font-extrabold text-primary">Без ограничений</h3>
+            <p class="mt-3 leading-relaxed text-primary/60">Одна подписка для пяти устройств одновременно и без лимита по объёму трафика.</p>
+          </article>
+        </div>
+      </section>
+
+      <Pricing cluster="home" />
+
+      <section class="py-14 md:py-20">
+        <div class="mb-9 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-sm font-extrabold uppercase tracking-[0.18em] text-accent">Инструкции и решения</p>
+            <h2 class="mt-3 text-3xl font-black text-primary md:text-5xl">Поможем подключить и настроить</h2>
+          </div>
+          <a href="/help/" class="focus-ring inline-flex items-center gap-2 rounded-xl font-bold text-secondary transition-colors hover:text-accent">Все инструкции <span class="material-symbols-outlined">arrow_forward</span></a>
+        </div>
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {guides.map((guide) => guide && (
+            <a href={`/${guide.slug}/`} class="focus-ring group rounded-[2rem] border border-primary/5 bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:border-accent/25 hover:shadow-soft">
+              <span class="material-symbols-outlined text-3xl text-accent">{guide.icon}</span>
+              <h3 class="mt-5 text-xl font-black leading-snug text-primary transition-colors group-hover:text-accent">{guide.h1}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-primary/60">{guide.quickAnswer}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section id="faq" class="scroll-mt-24 py-14 md:py-20">
+        <div class="mb-8">
+          <p class="text-sm font-extrabold uppercase tracking-[0.18em] text-accent">FAQ</p>
+          <h2 class="mt-3 text-3xl font-black text-primary md:text-4xl">Частые вопросы</h2>
+        </div>
+        <div class="flex flex-col gap-4">
+          {faq.map((item) => (
+            <details class="group overflow-hidden rounded-[1.5rem] border border-primary/5 bg-card transition-all open:shadow-lg">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-bold text-primary md:p-8 md:text-xl">{item.q}<span class="material-symbols-outlined text-3xl text-accent transition-transform duration-300 group-open:rotate-180">expand_more</span></summary>
+              <p class="border-t border-primary/5 px-6 pb-8 pt-6 leading-relaxed text-primary/70 md:px-8 md:text-lg">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <div class="py-12 md:py-20">
+        <CtaBlock title="Готовы к новому уровню цифрового уюта?" text="Подключите до пяти устройств, получите инструкции в боте и проверьте сервис за 10 ₽." cluster="home" position="home_end" />
+      </div>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>

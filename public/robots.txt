@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Host: oblepiha-vpn.ru
+Sitemap: https://oblepiha-vpn.ru/sitemap-index.xml

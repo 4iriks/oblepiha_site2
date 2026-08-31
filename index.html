@@ -3,11 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Облепиха VPN</title>
-    
-    <!-- Использование новых путей для фавикона и соцсетей -->
-    <link rel="icon" type="image/jpeg" href="./images/logo.jpeg" />
-    <meta property="og:image" content="./images/hero-image.jpeg" />
+
+    <!-- SEO: Title & Description -->
+    <title>Облепиха VPN — быстрый VPN для России с обходом блокировок</title>
+    <meta name="description" content="Облепиха VPN — надёжный VPN сервис с обходом белых списков. Мгновенное подключение, 5 устройств, работает в России. Пробный период 10₽ на 3 дня." />
+    <meta name="keywords" content="VPN, VPN для России, обход блокировок, Облепиха VPN, быстрый VPN, надежный VPN, обход белых списков, VPN сервис" />
+    <meta name="author" content="Облепиха VPN" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://oblepiha-vpn.ru/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./images/logo.png" />
+    <link rel="apple-touch-icon" href="./images/logo.png" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://oblepiha-vpn.ru/" />
+    <meta property="og:title" content="Облепиха VPN — быстрый VPN для России с обходом блокировок" />
+    <meta property="og:description" content="Надёжный VPN сервис с обходом белых списков. Мгновенное подключение, 5 устройств. Пробный период 10₽." />
+    <meta property="og:image" content="https://oblepiha-vpn.ru/images/hero-image.png" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="Облепиха VPN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Облепиха VPN — быстрый VPN для России" />
+    <meta name="twitter:description" content="Надёжный VPN с обходом белых списков. Пробный период 10₽ на 3 дня." />
+    <meta name="twitter:image" content="https://oblepiha-vpn.ru/images/hero-image.png" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Облепиха VPN",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "iOS, Android, Windows, macOS, Android TV",
+      "description": "Быстрый и надёжный VPN сервис с обходом белых списков для России",
+      "url": "https://oblepiha-vpn.ru",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "RUB",
+        "lowPrice": "10",
+        "highPrice": "549",
+        "offerCount": "3"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "150"
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "Облепиха VPN",
+        "url": "https://oblepiha-vpn.ru"
+      }
+    }
+    </script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,6 +79,7 @@
               'background-dark': '#1f1513',
               'surface-light': 'rgba(255, 255, 255, 0.6)',
               'surface-dark': 'rgba(62, 22, 14, 0.6)',
+              'card': '#faf1de',
             },
             fontFamily: {
               'display': ['Plus Jakarta Sans', 'sans-serif'],
@@ -69,7 +122,7 @@
 }
 </script>
 </head>
-  <body class="bg-background-light text-primary antialiased">
+  <body class="text-primary antialiased" style="background-color: #f7e9c6;">
     <div id="root"></div>
     <!-- Основной вход в приложение -->
     <script type="module" src="./index.tsx"></script>

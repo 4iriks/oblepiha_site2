@@ -22,7 +22,7 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <section className="px-6 py-12 pb-16">
+    <section id="faq" className="px-6 py-12 pb-16 scroll-mt-20">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-2">
           <h2 className="text-3xl md:text-4xl font-black text-primary">Частые вопросы</h2>
@@ -30,7 +30,7 @@ const FAQ: React.FC = () => {
         </div>
         <div className="flex flex-col gap-4">
           {faqs.map((faq, idx) => (
-            <details key={idx} className="group bg-white rounded-[1.5rem] border border-primary/5 overflow-hidden transition-all duration-300 open:shadow-lg open:scale-[1.01]">
+            <details key={idx} className="group bg-card rounded-[1.5rem] border border-primary/5 overflow-hidden transition-all duration-300 open:shadow-lg open:scale-[1.01]">
               <summary className="flex items-center justify-between p-6 md:p-8 cursor-pointer list-none select-none">
                 <span className="font-bold text-primary text-lg md:text-xl pr-6">{faq.q}</span>
                 <span className="material-symbols-outlined text-accent transition-transform duration-500 group-open:rotate-180 text-3xl">expand_more</span>

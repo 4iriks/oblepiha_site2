@@ -24,16 +24,27 @@ const Footer: React.FC = () => {
           
           <div className="flex flex-col md:flex-row gap-8 md:gap-16 text-center md:text-left">
             <div className="flex flex-col gap-3">
-              <a className="flex items-center justify-center md:justify-start gap-2 text-white/60 hover:text-white transition-all text-sm group" href="https://t.me/Oblepiha_Channel">
+              <span className="text-white/80 font-bold text-sm mb-1">Навигация</span>
+              <a href="#features" className="text-white/50 hover:text-white transition-colors text-sm">Преимущества</a>
+              <a href="#pricing" className="text-white/50 hover:text-white transition-colors text-sm">Тарифы</a>
+              <a href="#faq" className="text-white/50 hover:text-white transition-colors text-sm">FAQ</a>
+            </div>
+            <div className="flex flex-col gap-3">
+              <span className="text-white/80 font-bold text-sm mb-1">Контакты</span>
+              <a className="flex items-center justify-center md:justify-start gap-2 text-white/50 hover:text-white transition-all text-sm group" href="https://t.me/Oblepiha_Channel" target="_blank" rel="noopener noreferrer">
                 <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">send</span>
-                Наш Telegram
+                Telegram канал
+              </a>
+              <a className="flex items-center justify-center md:justify-start gap-2 text-white/50 hover:text-white transition-all text-sm group" href="https://t.me/oblepiha_vpn_bot" target="_blank" rel="noopener noreferrer">
+                <span className="material-symbols-outlined text-[18px] group-hover:scale-110 transition-transform">smart_toy</span>
+                Telegram бот
               </a>
             </div>
           </div>
         </div>
         
         <div className="text-center md:text-left pt-12 border-t border-white/5 mt-12">
-          <p className="text-[10px] md:text-xs text-white/20 uppercase tracking-[0.2em]">© 2024 Облепиха VPN. Все права защищены.</p>
+          <p className="text-[10px] md:text-xs text-white/20 uppercase tracking-[0.2em]">© 2026 Облепиха VPN. Все права защищены.</p>
         </div>
       </div>
     </footer>

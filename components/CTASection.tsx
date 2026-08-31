@@ -18,10 +18,10 @@ const CTASection: React.FC = () => {
           </div>
 
           <div className="w-full max-w-lg flex flex-col sm:flex-row gap-4">
-            <a href={botLink} className="w-full sm:flex-1 h-14 md:h-16 flex items-center justify-center rounded-2xl bg-accent text-white font-black text-lg md:text-xl shadow-glow hover:brightness-110 hover:scale-[1.02] transition-all">
+            <a href={botLink} target="_blank" rel="noopener noreferrer" title="Купить VPN подписку в Telegram" className="w-full sm:flex-1 h-14 md:h-16 flex items-center justify-center rounded-2xl bg-accent text-white font-black text-lg md:text-xl shadow-glow hover:brightness-110 hover:scale-[1.02] transition-all">
               Купить подписку
             </a>
-            <a href={botLink} className="w-full sm:flex-1 h-14 md:h-16 flex items-center justify-center rounded-2xl bg-white/10 text-[#f7e9c6] font-bold text-base md:text-lg hover:bg-white/20 transition-all border border-white/10 backdrop-blur-sm">
+            <a href={botLink} target="_blank" rel="noopener noreferrer" title="Попробовать VPN за 10 рублей" className="w-full sm:flex-1 h-14 md:h-16 flex items-center justify-center rounded-2xl bg-white/10 text-[#f7e9c6] font-bold text-base md:text-lg hover:bg-white/20 transition-all border border-white/10 backdrop-blur-sm">
               Тест за 10₽
             </a>
           </div>

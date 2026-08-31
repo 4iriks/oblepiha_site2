@@ -16,7 +16,7 @@ const Pricing: React.FC = () => {
         {/* Trial Plan */}
         <div 
           onClick={() => setSelected('trial')}
-          className={`relative flex flex-col p-8 bg-white border-2 rounded-[2.5rem] transition-all duration-300 cursor-pointer shadow-sm ${selected === 'trial' ? 'border-accent bg-accent/5' : 'border-primary/5 hover:border-accent/30'}`}
+          className={`relative flex flex-col p-8 bg-card border-2 rounded-[2.5rem] transition-all duration-300 cursor-pointer shadow-sm ${selected === 'trial' ? 'border-accent bg-accent/5' : 'border-primary/5 hover:border-accent/30'}`}
         >
           <div className="flex justify-between items-center mb-6">
             <span className="text-xl font-bold text-primary">Пробный</span>
@@ -26,7 +26,7 @@ const Pricing: React.FC = () => {
             3 дня полного доступа ко всем возможностям. Оцените качество нашего сервиса.
           </p>
           <div className="mt-auto">
-            <a href={botLink} className={`w-full py-4 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 ${selected === 'trial' ? 'bg-accent text-white shadow-glow' : 'bg-primary/5 text-primary'}`}>
+            <a href={botLink} target="_blank" rel="noopener noreferrer" title="Попробовать VPN за 10 рублей" className={`w-full py-4 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 ${selected === 'trial' ? 'bg-accent text-white shadow-glow' : 'bg-primary/5 text-primary'}`}>
               Попробовать
               <span className="material-symbols-outlined text-lg">chevron_right</span>
             </a>
@@ -47,7 +47,7 @@ const Pricing: React.FC = () => {
             Максимальная свобода и скорость. Подключайте до 5 устройств одновременно.
           </p>
           <div className="mt-auto">
-            <a href={botLink} className="w-full py-5 rounded-2xl bg-accent text-white font-black text-lg shadow-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
+            <a href={botLink} target="_blank" rel="noopener noreferrer" title="Купить VPN на месяц за 199 рублей" className="w-full py-5 rounded-2xl bg-accent text-white font-black text-lg shadow-lg hover:brightness-110 transition-all flex items-center justify-center gap-2">
               Подключить
               <span className="material-symbols-outlined text-xl">bolt</span>
             </a>
@@ -57,7 +57,7 @@ const Pricing: React.FC = () => {
         {/* 3 Months Plan */}
         <div 
           onClick={() => setSelected('three-months')}
-          className={`relative flex flex-col p-8 bg-white border-2 rounded-[2.5rem] transition-all duration-300 cursor-pointer shadow-sm ${selected === 'three-months' ? 'border-accent bg-accent/5' : 'border-primary/5 hover:border-accent/30'}`}
+          className={`relative flex flex-col p-8 bg-card border-2 rounded-[2.5rem] transition-all duration-300 cursor-pointer shadow-sm ${selected === 'three-months' ? 'border-accent bg-accent/5' : 'border-primary/5 hover:border-accent/30'}`}
         >
           <div className="flex justify-between items-center mb-6">
             <span className="text-xl font-bold text-primary">3 Месяца</span>
@@ -67,7 +67,7 @@ const Pricing: React.FC = () => {
             Выгодный выбор для долгой работы. Экономьте более 10% ежемесячно.
           </p>
           <div className="mt-auto">
-            <a href={botLink} className={`w-full py-4 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 ${selected === 'three-months' ? 'bg-accent text-white shadow-glow' : 'bg-primary/5 text-primary'}`}>
+            <a href={botLink} target="_blank" rel="noopener noreferrer" title="Купить VPN на 3 месяца за 549 рублей" className={`w-full py-4 rounded-2xl font-bold text-base transition-all flex items-center justify-center gap-2 ${selected === 'three-months' ? 'bg-accent text-white shadow-glow' : 'bg-primary/5 text-primary'}`}>
               Выбрать тариф
             </a>
           </div>

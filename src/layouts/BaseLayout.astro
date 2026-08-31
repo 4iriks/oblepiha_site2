@@ -1,0 +1,112 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  published?: string;
+  modified?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.pathname,
+  image = '/images/og.png',
+  type = 'website',
+  noindex = false,
+  published,
+  modified,
+  structuredData,
+} = Astro.props;
+
+const siteUrl = 'https://oblepiha-vpn.ru';
+const canonicalUrl = canonical.startsWith('http') ? canonical : new URL(canonical, siteUrl).toString();
+const imageUrl = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
+const jsonLd = structuredData ? JSON.stringify(structuredData) : undefined;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Облепиха VPN" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="Облепиха VPN" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1731" />
+    <meta property="og:image:height" content="909" />
+    {published && <meta property="article:published_time" content={published} />}
+    {modified && <meta property="article:modified_time" content={modified} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+
+    {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd}></script>}
+
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-XGQN3482G8"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XGQN3482G8');
+    </script>
+
+    <script is:inline>
+      (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+      (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=106091881', 'ym');
+      ym(106091881, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:'dataLayer', accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/106091881" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  </head>
+  <body>
+    <slot />
+    <script is:inline>
+      document.addEventListener('click', function (event) {
+        if (!(event.target instanceof Element)) return;
+        const link = event.target.closest('[data-seo-cta]');
+        if (!link) return;
+        const data = {
+          page_path: window.location.pathname,
+          cluster: link.dataset.cluster || 'general',
+          cta_position: link.dataset.position || 'content',
+          offer: link.dataset.offer || 'subscription'
+        };
+        if (typeof window.gtag === 'function') window.gtag('event', 'seo_cta_click', data);
+        if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', 'seo_cta_click', data);
+      });
+    </script>
+  </body>
+</html>

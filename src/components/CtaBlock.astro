@@ -1,0 +1,28 @@
+---
+interface Props {
+  title?: string;
+  text?: string;
+  cluster?: string;
+  position?: string;
+}
+const {
+  title = 'Подключите Облепиху за несколько минут',
+  text = 'Получите ссылку подписки в Telegram-боте, добавьте её в приложение и проверьте подключение за 10 ₽.',
+  cluster = 'general',
+  position = 'content',
+} = Astro.props;
+const botLink = `https://t.me/oblepiha_vpn_bot?start=seo_${cluster}`;
+---
+
+<aside class="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary to-[#2d201c] p-8 text-center shadow-2xl md:p-12">
+  <div class="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-accent/20 blur-[90px]"></div>
+  <div class="absolute -bottom-20 -right-20 h-72 w-72 rounded-full bg-secondary/15 blur-[90px]"></div>
+  <div class="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-5">
+    <h2 class="text-2xl font-black leading-tight text-backgroundLight md:text-4xl">{title}</h2>
+    <p class="text-base leading-relaxed text-white/65 md:text-lg">{text}</p>
+    <div class="mt-2 flex w-full max-w-lg flex-col gap-3 sm:flex-row">
+      <a href={botLink} target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster={cluster} data-position={position} data-offer="subscription" class="focus-ring flex h-14 flex-1 items-center justify-center rounded-2xl bg-accent px-6 text-lg font-black text-white shadow-glow transition-all hover:scale-[1.02] hover:brightness-110">Открыть бота</a>
+      <a href="/#pricing" class="focus-ring flex h-14 flex-1 items-center justify-center rounded-2xl border border-white/10 bg-white/10 px-6 font-bold text-backgroundLight transition-all hover:bg-white/20">Посмотреть тарифы</a>
+    </div>
+  </div>
+</aside>

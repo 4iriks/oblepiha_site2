@@ -17,10 +17,10 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="flex flex-col gap-5 md:gap-8 text-center lg:text-left items-center lg:items-start max-w-xl relative order-2 lg:order-1">
-        <h1 className="text-primary text-[2.2rem] md:text-[3.5rem] lg:text-[4.5rem] font-black leading-[1.05] tracking-tight relative z-10">
-          <span className="block text-xl md:text-2xl font-extrabold text-primary/80 mb-1">Минимум настроек —</span>
-          <span className="text-accent relative inline-block drop-shadow-sm">
-            максимум <br className="hidden lg:block"/> комфорта.
+        <h1 className="text-primary text-[2.2rem] md:text-[3.5rem] lg:text-[4.5rem] font-black leading-none tracking-tight relative z-10">
+          <span className="block text-xl md:text-3xl font-extrabold text-primary/80 mb-1">Минимум настроек —</span>
+          <span className="text-accent relative block drop-shadow-sm" style={{ lineHeight: 1.1 }}>
+            максимум<br /> комфорта.
             <svg className="absolute w-[110%] h-4 -bottom-1 -left-1 text-secondary opacity-40 z-[-1]" preserveAspectRatio="none" viewBox="0 0 100 10">
               <path d="M0 5 Q 50 12 100 5" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="4"></path>
             </svg>
@@ -33,8 +33,9 @@ const Hero: React.FC = () => {
 
         <div className="flex flex-col items-center lg:items-start w-full mt-2">
           <div className="flex flex-col items-center gap-3 w-full sm:w-[380px]">
-            <a 
-              href="#pricing" 
+            <a
+              href="#pricing"
+              title="Выбрать тариф VPN"
               className="w-full h-14 md:h-16 flex items-center justify-center rounded-2xl bg-primary text-[#f7e9c6] text-lg md:text-xl font-bold shadow-soft hover:shadow-glow hover:-translate-y-0.5 transition-all duration-300"
             >
               Начать

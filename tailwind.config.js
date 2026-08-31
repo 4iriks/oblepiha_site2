@@ -1,21 +1,17 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./index.html",
-    "./index.tsx",
-    "./App.tsx",
-    "./components/**/*.{ts,tsx}",
-  ],
+export default {
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
         primary: '#3e160e',
         accent: '#e96029',
-        secondary: '#5067d4',
+        secondary: '#50674d',
         backgroundLight: '#f7e9c6',
         backgroundDark: '#1f1513',
         surfaceLight: 'rgba(255, 255, 255, 0.6)',
         surfaceDark: 'rgba(62, 22, 14, 0.6)',
+        card: '#faf1de',
       },
       fontFamily: {
         display: ['Plus Jakarta Sans', 'sans-serif'],

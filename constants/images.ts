@@ -1,5 +1,5 @@
-import logoImg from '../images/logo.jpeg';
-import heroImg from '../images/hero-image.jpeg';
+import logoImg from '../images/logo.png';
+import heroImg from '../images/hero-image.png';
 
 export const IMAGE_PATHS = {
   LOGO: logoImg,

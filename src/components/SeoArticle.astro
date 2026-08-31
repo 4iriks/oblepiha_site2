@@ -1,0 +1,156 @@
+---
+import type { ContentPage } from '../data/pages';
+import { categoryLabels, pageBySlug } from '../data/pages';
+import Pricing from './Pricing.astro';
+import CtaBlock from './CtaBlock.astro';
+
+interface Props {
+  page: ContentPage;
+}
+
+const { page } = Astro.props;
+const relatedPages = page.related.map((slug) => pageBySlug.get(slug)).filter(Boolean) as ContentPage[];
+const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.slug);
+---
+
+<main class="relative z-10 w-full">
+  <section class="px-4 pb-12 pt-8 sm:px-6 md:pb-16 md:pt-12">
+    <div class="mx-auto max-w-5xl">
+      <nav aria-label="Хлебные крошки" class="mb-7 flex flex-wrap items-center gap-2 text-sm font-semibold text-primary/50">
+        <a href="/" class="transition-colors hover:text-accent">Главная</a>
+        <span aria-hidden="true">/</span>
+        <span>{categoryLabels[page.category]}</span>
+        <span aria-hidden="true">/</span>
+        <span class="text-primary/80">{page.h1}</span>
+      </nav>
+
+      <div class="relative overflow-hidden rounded-[2.5rem] border border-primary/5 bg-card p-7 shadow-soft sm:p-10 md:rounded-[3rem] md:p-14">
+        <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent/10 blur-[85px]"></div>
+        <div class="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-secondary/10 blur-[85px]"></div>
+        <div class="relative z-10">
+          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/15 bg-accent/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.13em] text-accent sm:text-sm">
+            <span class="material-symbols-outlined text-lg">{page.icon}</span>
+            {page.eyebrow}
+          </div>
+          <h1 class="max-w-4xl text-4xl font-black leading-[1.05] tracking-tight text-primary sm:text-5xl md:text-6xl">{page.h1}</h1>
+          <p class="mt-6 max-w-3xl font-body text-lg leading-relaxed text-primary/70 md:text-xl">{page.intro}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 pb-10 sm:px-6 md:pb-14">
+    <div class="mx-auto max-w-5xl rounded-[2rem] border border-accent/15 bg-white/45 p-6 shadow-card md:p-8">
+      <div class="flex items-start gap-4">
+        <span class="material-symbols-outlined mt-0.5 text-3xl text-accent">bolt</span>
+        <div>
+          <h2 class="text-lg font-black text-primary md:text-xl">Короткий ответ</h2>
+          <p class="mt-2 text-base leading-relaxed text-primary/70 md:text-lg">{page.quickAnswer}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto grid max-w-7xl gap-8 px-4 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12">
+    <article class="min-w-0">
+      <div class="flex flex-col gap-7">
+        {page.sections.map((section, sectionIndex) => (
+          <section class="rounded-[2rem] border border-primary/5 bg-card p-6 shadow-card md:p-9" id={`section-${sectionIndex + 1}`}>
+            <h2 class="text-2xl font-black leading-tight text-primary md:text-3xl">{section.title}</h2>
+            {section.paragraphs && (
+              <div class="article-copy mt-5">
+                {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+              </div>
+            )}
+            {section.steps && (
+              <ol class="mt-6 flex flex-col gap-4">
+                {section.steps.map((step, index) => (
+                  <li class="flex items-start gap-4">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-black text-white">{index + 1}</span>
+                    <span class="pt-1 text-base leading-relaxed text-primary/75 md:text-lg">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
+            {section.bullets && (
+              <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+                {section.bullets.map((item) => (
+                  <li class="flex items-start gap-3 rounded-2xl bg-backgroundLight/70 p-4 text-sm leading-relaxed text-primary/75 md:text-base">
+                    <span class="material-symbols-outlined text-xl text-secondary">check_circle</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {section.note && (
+              <div class="mt-6 flex items-start gap-3 rounded-2xl border border-secondary/15 bg-secondary/5 p-4 text-sm leading-relaxed text-primary/70 md:text-base">
+                <span class="material-symbols-outlined text-secondary">info</span>
+                <span>{section.note}</span>
+              </div>
+            )}
+          </section>
+        ))}
+      </div>
+
+      {page.faq.length > 0 && (
+        <section class="mt-10" id="faq">
+          <div class="mb-6">
+            <p class="text-sm font-extrabold uppercase tracking-[0.16em] text-accent">FAQ</p>
+            <h2 class="mt-2 text-3xl font-black text-primary">Частые вопросы</h2>
+          </div>
+          <div class="flex flex-col gap-4">
+            {page.faq.map((item) => (
+              <details class="group overflow-hidden rounded-[1.5rem] border border-primary/5 bg-card transition-all open:shadow-lg">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-bold text-primary md:text-lg">
+                  {item.q}
+                  <span class="material-symbols-outlined shrink-0 text-accent transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                </summary>
+                <p class="border-t border-primary/5 px-6 pb-6 pt-5 leading-relaxed text-primary/70">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {page.promotional !== false && (
+        <div class="mt-12">
+          <CtaBlock cluster={page.campaign} position="article_end" />
+        </div>
+      )}
+
+      {showPricing && (
+        <div class="mt-8">
+          <Pricing cluster={page.campaign} compact />
+        </div>
+      )}
+
+      {relatedPages.length > 0 && (
+        <section class="mt-12">
+          <h2 class="text-2xl font-black text-primary">Читайте дальше</h2>
+          <div class="mt-5 grid gap-4 md:grid-cols-3">
+            {relatedPages.map((related) => (
+              <a href={`/${related.slug}/`} class="focus-ring group rounded-[1.5rem] border border-primary/5 bg-card p-5 transition-all hover:-translate-y-1 hover:border-accent/30 hover:shadow-soft">
+                <span class="material-symbols-outlined text-2xl text-accent">{related.icon}</span>
+                <h3 class="mt-4 font-black leading-snug text-primary group-hover:text-accent">{related.h1}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-primary/55">{related.quickAnswer}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </article>
+
+    <aside class="hidden lg:block">
+      <div class="sticky top-28 rounded-[2rem] border border-primary/5 bg-white/35 p-6 shadow-card">
+        <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-accent">На этой странице</p>
+        <nav class="mt-4 flex flex-col gap-3 text-sm font-semibold text-primary/65" aria-label="Содержание страницы">
+          {page.sections.map((section, index) => <a href={`#section-${index + 1}`} class="transition-colors hover:text-accent">{section.title}</a>)}
+          <a href="#faq" class="transition-colors hover:text-accent">Частые вопросы</a>
+        </nav>
+        {page.promotional !== false && (
+          <a href={`https://t.me/oblepiha_vpn_bot?start=seo_${page.campaign}`} target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster={page.campaign} data-position="sidebar" class="focus-ring mt-6 flex w-full items-center justify-center rounded-2xl bg-primary px-4 py-3 font-bold text-backgroundLight transition-all hover:bg-accent">Открыть бота</a>
+        )}
+      </div>
+    </aside>
+  </div>
+</main>

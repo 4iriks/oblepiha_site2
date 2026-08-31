@@ -16,10 +16,12 @@ const Header: React.FC = () => {
           <h2 className="text-primary text-xl md:text-2xl font-extrabold tracking-tight">Облепиха</h2>
         </div>
         <nav className="flex items-center gap-4 md:gap-8">
-          <a href="#pricing" className="hidden md:block text-primary/70 hover:text-primary font-bold transition-colors">Преимущества</a>
-          <a 
-            href="#pricing" 
+          <a href="#features" className="hidden md:block text-primary/70 hover:text-primary font-bold transition-colors" title="Преимущества Облепиха VPN">Преимущества</a>
+          <a href="#faq" className="hidden md:block text-primary/70 hover:text-primary font-bold transition-colors" title="Частые вопросы">FAQ</a>
+          <a
+            href="#pricing"
             className="px-5 py-2.5 rounded-full bg-primary text-[#f7e9c6] text-sm md:text-base font-bold transition-all hover:bg-accent hover:shadow-glow"
+            title="Тарифы и цены VPN"
           >
             Тарифы
           </a>

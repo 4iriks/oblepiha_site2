@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SeoArticle from '../components/SeoArticle.astro';
+import { pages, type ContentPage } from '../data/pages';
+
+export function getStaticPaths() {
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+interface Props {
+  page: ContentPage;
+}
+
+const { page } = Astro.props;
+const canonical = `/${page.slug}/`;
+const published = '2026-08-31T00:00:00+03:00';
+const modified = '2026-08-31T00:00:00+03:00';
+const articleUrl = `https://oblepiha-vpn.ru${canonical}`;
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: page.h1,
+    description: page.description,
+    datePublished: published,
+    dateModified: modified,
+    mainEntityOfPage: articleUrl,
+    author: { '@type': 'Organization', name: 'Облепиха VPN', url: 'https://oblepiha-vpn.ru/about/' },
+    publisher: { '@type': 'Organization', name: 'Облепиха VPN', logo: { '@type': 'ImageObject', url: 'https://oblepiha-vpn.ru/images/logo.png' } },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: 'https://oblepiha-vpn.ru/' },
+      { '@type': 'ListItem', position: 2, name: page.h1, item: articleUrl },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: page.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  },
+];
+---
+
+<BaseLayout title={page.title} description={page.description} canonical={canonical} type="article" published={published} modified={modified} structuredData={structuredData}>
+  <div class="relative flex min-h-screen flex-col overflow-x-hidden bg-backgroundLight">
+    <div class="pointer-events-none fixed inset-0 z-0">
+      <div class="absolute -left-[10%] -top-[10%] h-[50%] w-[50%] rounded-full bg-accent/10 blur-[120px]"></div>
+      <div class="absolute bottom-[10%] right-[-5%] h-[40%] w-[40%] rounded-full bg-secondary/10 blur-[100px]"></div>
+    </div>
+    <SiteHeader compact />
+    <SeoArticle page={page} />
+    <SiteFooter />
+  </div>
+</BaseLayout>
