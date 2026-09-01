@@ -9,8 +9,8 @@ import { pageBySlug } from '../data/pages';
 const faq = [
   { q: 'Как я получу доступ?', a: 'После оплаты бот покажет персональную ссылку подписки и инструкцию для вашего устройства. Ссылку нужно открыть в Happ или V2RayTun и включить подключение.' },
   { q: 'Что такое белые списки?', a: 'Список разрешённых ресурсов, которым разрешено работать, в то время как всё остальное блокируется. Наши алгоритмы позволяют обходить эти ограничения, возвращая вам доступ к привычным сервисам.' },
-  { q: 'Какие устройства поддерживаются?', a: 'Мы поддерживаем iOS, Android, Windows, macOS и Android TV. Один аккаунт можно использовать на пяти устройствах.' },
-  { q: 'Сколько устройств можно подключить?', a: 'Один аккаунт можно одновременно использовать на 5 различных устройствах без ограничения по объёму трафика.' },
+  { q: 'Какие устройства поддерживаются?', a: 'Мы поддерживаем iOS, Android, Windows, macOS и Android TV. Один аккаунт можно использовать на 10 устройствах.' },
+  { q: 'Сколько устройств можно подключить?', a: 'Один аккаунт можно одновременно использовать на 10 различных устройствах без ограничения по объёму трафика.' },
 ];
 
 const guideSlugs = ['happ-vpn', 'happ-vpn/ne-rabotaet', 'happ-vpn/kak-podklyuchit', 'vpn-rabotaet-no-internet', 'vpn-na-mobilnom-internete', 'kak-proverit-vpn'];
@@ -30,7 +30,7 @@ const structuredData = [
     name: 'Облепиха VPN',
     applicationCategory: 'SecurityApplication',
     operatingSystem: 'iOS, Android, Windows, macOS, Android TV',
-    description: 'VPN-сервис для России с подключением до 5 устройств и управлением через Telegram.',
+    description: 'VPN-сервис для России с подключением до 10 устройств и управлением через Telegram.',
     url: 'https://oblepiha-vpn.ru/',
     offers: { '@type': 'AggregateOffer', priceCurrency: 'RUB', lowPrice: '10', highPrice: '549', offerCount: '3' },
     provider: { '@type': 'Organization', name: 'Облепиха VPN', url: 'https://oblepiha-vpn.ru/' },
@@ -43,7 +43,7 @@ const structuredData = [
 ];
 ---
 
-<BaseLayout title="Облепиха VPN — быстрый VPN для России" description="Облепиха VPN — подключение за несколько минут, 5 устройств и безлимитный трафик. Пробный период 3 дня за 10 ₽." canonical="/" structuredData={structuredData}>
+<BaseLayout title="Облепиха VPN — быстрый VPN для России" description="Облепиха VPN — подключение за несколько минут, до 10 устройств и безлимитный трафик. Пробный период 3 дня за 10 ₽." canonical="/" structuredData={structuredData}>
   <div class="relative flex min-h-screen flex-col overflow-x-hidden bg-backgroundLight">
     <div class="pointer-events-none fixed inset-0 z-0">
       <div class="absolute -left-[10%] -top-[10%] h-[50%] w-[50%] animate-pulse rounded-full bg-accent/10 blur-[120px]"></div>
@@ -56,19 +56,14 @@ const structuredData = [
       <section class="flex min-h-[calc(100vh-84px)] flex-col items-center justify-center gap-8 pb-16 pt-8 lg:min-h-0 lg:flex-row lg:gap-20 lg:pb-24 lg:pt-12">
         <div class="order-2 flex max-w-xl flex-col items-center gap-6 text-center lg:order-1 lg:items-start lg:text-left">
           <h1 class="text-[2.5rem] font-black leading-none tracking-tight text-primary md:text-[4rem] lg:text-[4.8rem]">
-            <span class="mb-2 block text-xl font-extrabold text-primary/80 md:text-3xl">VPN для пяти устройств —</span>
+            <span class="mb-2 block text-xl font-extrabold text-primary/80 md:text-3xl">VPN для 10 устройств —</span>
             <span class="block leading-[1.03] text-accent">подключили<br />и пользуетесь.</span>
           </h1>
-          <p class="max-w-lg font-body text-lg font-medium leading-relaxed text-primary/70 md:text-xl">Облепиха работает с Happ и V2RayTun. Подключение через Telegram, одна подписка для пяти устройств и VPN-сервис с обходом белых списков.</p>
+          <p class="max-w-lg font-body text-lg font-medium leading-relaxed text-primary/70 md:text-xl">Облепиха работает с Happ и V2RayTun. Подключение через Telegram, одна подписка для 10 устройств и VPN-сервис с обходом белых списков.</p>
           <div class="mt-2 flex w-full max-w-[400px] flex-col items-center gap-3 lg:items-start">
             <a href="https://t.me/oblepiha_vpn_bot?start=seo_home" target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster="home" data-position="hero" data-offer="trial" class="focus-ring flex h-16 w-full items-center justify-center rounded-2xl bg-primary text-xl font-bold text-backgroundLight shadow-soft transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-glow">Попробовать за 10 ₽</a>
             <a href="#pricing" class="focus-ring self-center rounded-lg text-sm font-bold text-primary/60 transition-colors hover:text-accent lg:self-start">Сначала посмотреть тарифы</a>
             <span class="flex items-center gap-2 text-sm font-semibold text-secondary md:text-base"><span class="material-symbols-outlined text-xl">verified_user</span> 10 ₽ за 3 дня полного доступа</span>
-            <nav aria-label="Быстрая помощь" class="mt-2 grid w-full grid-cols-1 gap-2 text-sm sm:grid-cols-3">
-              <a href="/happ-vpn/" data-help-link data-position="home_hero" class="focus-ring rounded-xl border border-primary/10 bg-white/60 px-3 py-2.5 text-center font-bold text-primary/70 transition-colors hover:border-accent/30 hover:text-accent">Уже есть Happ</a>
-              <a href="/happ-vpn/ne-rabotaet/" data-help-link data-position="home_hero" class="focus-ring rounded-xl border border-primary/10 bg-white/60 px-3 py-2.5 text-center font-bold text-primary/70 transition-colors hover:border-accent/30 hover:text-accent">Happ не работает</a>
-              <a href="/help/" data-help-link data-position="home_hero" class="focus-ring rounded-xl border border-primary/10 bg-white/60 px-3 py-2.5 text-center font-bold text-primary/70 transition-colors hover:border-accent/30 hover:text-accent">Все инструкции</a>
-            </nav>
           </div>
         </div>
 
@@ -95,8 +90,8 @@ const structuredData = [
           </article>
           <article class="rounded-[2.5rem] border border-primary/5 bg-card p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft">
             <span class="material-symbols-outlined flex h-16 w-16 items-center justify-center rounded-2xl bg-backgroundLight text-4xl text-primary">devices</span>
-            <h3 class="mt-5 text-xl font-extrabold text-primary">До пяти устройств</h3>
-            <p class="mt-3 leading-relaxed text-primary/60">Одна подписка для пяти устройств одновременно и без лимита по объёму трафика.</p>
+            <h3 class="mt-5 text-xl font-extrabold text-primary">До 10 устройств</h3>
+            <p class="mt-3 leading-relaxed text-primary/60">Одна подписка для 10 устройств одновременно и без лимита по объёму трафика.</p>
           </article>
         </div>
       </section>
