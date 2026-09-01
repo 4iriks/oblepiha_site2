@@ -7,5 +7,19 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          assetFileNames: (assetInfo) => {
+            const name = assetInfo.names?.[0] ?? '';
+            return name.endsWith('.css')
+              ? '_astro/[name].css'
+              : '_astro/[name].[hash][extname]';
+          },
+        },
+      },
+    },
+  },
   integrations: [sitemap()],
 });
