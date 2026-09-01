@@ -41,13 +41,15 @@ const hasTroubleshooter = page.interactive === 'happ-troubleshooter';
               {page.heroActions.map((action) => {
                 const isExternal = action.href.startsWith('http');
                 const isBot = action.href.startsWith('https://t.me/');
+                const isAnalyzer = action.href === '#happ-diagnostic';
+                const botOffer = action.label.includes('10 ₽') ? 'trial' : 'subscription';
                 const classes = action.primary
                   ? 'focus-ring inline-flex min-h-13 items-center justify-center rounded-2xl bg-primary px-6 py-3.5 font-black text-backgroundLight transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-glow'
                   : 'focus-ring inline-flex min-h-13 items-center justify-center rounded-2xl border border-primary/10 bg-white/55 px-6 py-3.5 font-bold text-primary transition-all hover:border-accent/30 hover:bg-white';
                 return isBot ? (
-                  <a href={action.href} target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster={page.campaign} data-position="hero" data-offer="subscription" class={classes}>{action.label}</a>
+                  <a href={action.href} target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster={page.campaign} data-position="hero" data-offer={botOffer} class={classes}>{action.label}</a>
                 ) : (
-                  <a href={action.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined} class={classes}>{action.label}</a>
+                  <a href={action.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined} data-analyzer-open={isAnalyzer ? '' : undefined} data-analyzer-position={isAnalyzer ? 'hero' : undefined} class={classes}>{action.label}</a>
                 );
               })}
             </div>

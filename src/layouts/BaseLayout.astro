@@ -95,7 +95,46 @@ const jsonLd = structuredData ? JSON.stringify(structuredData) : undefined;
     <slot />
     <script is:inline>
       const attributionKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+      const pageStartedAt = performance.now();
       let attribution = {};
+
+      const readSessionJson = (key) => {
+        try {
+          const value = sessionStorage.getItem(key);
+          return value ? JSON.parse(value) : {};
+        } catch {
+          return {};
+        }
+      };
+
+      const cleanLabel = (element) => (element?.dataset?.ctaLabel || element?.textContent || '')
+        .trim()
+        .replace(/\s+/g, ' ')
+        .slice(0, 100);
+
+      const pageContext = () => {
+        const documentHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+        const viewportBottom = window.scrollY + window.innerHeight;
+        const scrollDepth = documentHeight > 0
+          ? Math.min(100, Math.round((viewportBottom / documentHeight) * 100))
+          : 0;
+
+        return {
+          page_path: window.location.pathname,
+          page_title: document.title.slice(0, 120),
+          time_on_page_sec: Math.max(0, Math.round((performance.now() - pageStartedAt) / 1000)),
+          scroll_depth_percent: scrollDepth,
+          ...attribution
+        };
+      };
+
+      const trackEvent = (eventName, details = {}) => {
+        const data = { ...pageContext(), ...details };
+        if (typeof window.gtag === 'function') window.gtag('event', eventName, data);
+        if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', eventName, data);
+      };
+
+      window.oblepihaTrack = trackEvent;
 
       try {
         const params = new URLSearchParams(window.location.search);
@@ -134,30 +173,48 @@ const jsonLd = structuredData ? JSON.stringify(structuredData) : undefined;
             startParam = new URL(link.href).searchParams.get('start') || '';
           } catch {}
 
+          const cluster = link.dataset.cluster || 'general';
+          const position = link.dataset.position || 'content';
+          const offer = link.dataset.offer || 'subscription';
+          const diagnostic = readSessionJson('oblepiha_diagnostic');
           const data = {
-            page_path: window.location.pathname,
-            cluster: link.dataset.cluster || 'general',
-            cta_position: link.dataset.position || 'content',
-            offer: link.dataset.offer || 'subscription',
+            cluster,
+            cta_position: position,
+            cta_id: link.dataset.ctaId || `${cluster}_${position}_${offer}`.slice(0, 100),
+            cta_text: cleanLabel(link),
+            offer,
             destination: 'telegram_bot',
             start_param: startParam,
-            ...attribution
+            diagnostic_session_id: diagnostic.sessionId || '',
+            diagnostic_symptom: diagnostic.symptom || '',
+            diagnostic_last_choice: diagnostic.lastChoice || '',
+            diagnostic_outcome: diagnostic.outcome || '',
+            diagnostic_step_number: diagnostic.stepNumber || 0
           };
-          if (typeof window.gtag === 'function') window.gtag('event', 'seo_cta_click', data);
-          if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', 'seo_cta_click', data);
+          trackEvent('bot_cta_click', data);
+          trackEvent('seo_cta_click', { ...data, compatibility_event: 'legacy' });
+          if (position === 'diagnostic_result') trackEvent('vpn_analyzer_bot_click', data);
+          return;
+        }
+
+        const analyzerLink = event.target.closest('[data-analyzer-open], a[href="#happ-diagnostic"]');
+        if (analyzerLink) {
+          trackEvent('vpn_analyzer_open', {
+            cta_position: analyzerLink.dataset.analyzerPosition || analyzerLink.dataset.position || 'content',
+            cta_text: cleanLabel(analyzerLink),
+            target: 'happ_diagnostic'
+          });
           return;
         }
 
         const helpLink = event.target.closest('[data-help-link]');
         if (!helpLink) return;
         const helpData = {
-          page_path: window.location.pathname,
           target_path: helpLink.getAttribute('href') || '',
           link_position: helpLink.dataset.position || 'content',
-          ...attribution
+          link_text: cleanLabel(helpLink)
         };
-        if (typeof window.gtag === 'function') window.gtag('event', 'help_link_click', helpData);
-        if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', 'help_link_click', helpData);
+        trackEvent('help_link_click', helpData);
       });
     </script>
   </body>

@@ -212,7 +212,7 @@
             <p class="mt-4 leading-relaxed text-white/70 md:text-lg">Так можно отделить проблему Happ или устройства от проблемы старой подписки. У Облепихи есть пробный доступ за 10 ₽ на 3 дня, а поддержка поможет добавить ссылку и разобрать ошибку по скриншоту.</p>
             <p class="mt-3 text-sm leading-relaxed text-white/50">Мы не обещаем работу в любой сети без исключений — для этого и нужен недорогой тест перед обычной подпиской.</p>
             <div class="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a href="https://t.me/oblepiha_vpn_bot?start=seo_happ_diag" target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster="happ_fix" data-position="diagnostic_result" data-offer="trial" class="focus-ring inline-flex min-h-13 items-center justify-center rounded-2xl bg-accent px-6 py-3.5 font-black text-white shadow-glow transition-all hover:-translate-y-0.5 hover:brightness-110">Попробовать за 10 ₽</a>
+              <a href="https://t.me/oblepiha_vpn_bot?start=seo_happ_diag" target="_blank" rel="noopener noreferrer" data-seo-cta data-cta-id="happ_diagnostic_trial_10" data-cluster="happ_fix" data-position="diagnostic_result" data-offer="trial" class="focus-ring inline-flex min-h-13 items-center justify-center rounded-2xl bg-accent px-6 py-3.5 font-black text-white shadow-glow transition-all hover:-translate-y-0.5 hover:brightness-110">Попробовать за 10 ₽</a>
               <button type="button" class="focus-ring min-h-13 rounded-2xl border border-white/10 bg-white/10 px-6 py-3.5 font-bold text-white hover:bg-white/15" data-diagnostic-reset>Проверить другой симптом</button>
             </div>
           </div>
@@ -233,16 +233,84 @@
     const headerReset = root.querySelector('[data-diagnostic-header-reset]');
     const loading = root.querySelector('[data-diagnostic-loading]');
     const loadingCopy = root.querySelector('[data-diagnostic-loading-copy]');
+    const symptomChoices = new Set([
+      'subscription_empty',
+      'connection_error',
+      'connected_no_internet',
+      'single_app',
+      'unstable'
+    ]);
     let transitionTimer;
 
-    const track = (choice, panel) => {
+    const readState = () => {
+      try {
+        const value = sessionStorage.getItem('oblepiha_diagnostic');
+        return value ? JSON.parse(value) : {};
+      } catch {
+        return {};
+      }
+    };
+
+    const writeState = (state) => {
+      try {
+        sessionStorage.setItem('oblepiha_diagnostic', JSON.stringify(state));
+      } catch {}
+    };
+
+    const sendEvent = (eventName, data) => {
+      if (typeof window.oblepihaTrack === 'function') {
+        window.oblepihaTrack(eventName, data);
+        return;
+      }
+      if (typeof window.gtag === 'function') window.gtag('event', eventName, data);
+      if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', eventName, data);
+    };
+
+    const eventForChoice = (choice) => {
+      if (choice === 'start_check') return 'vpn_analyzer_start';
+      if (choice === 'reset') return 'vpn_analyzer_reset';
+      if (symptomChoices.has(choice)) return 'vpn_analyzer_symptom';
+      if (choice.includes('_not_fixed')) return 'vpn_analyzer_retry';
+      if (choice.endsWith('_failed')) return 'vpn_analyzer_failed';
+      if (choice.endsWith('_fixed') || choice.endsWith('_fixed_second')) return 'vpn_analyzer_success';
+      return 'vpn_analyzer_step';
+    };
+
+    const track = (choice, panel, buttonText = '') => {
+      let state = readState();
+      if (choice === 'start_check' || !state.sessionId) {
+        state = {
+          sessionId: window.crypto?.randomUUID?.() || `${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
+          startedAt: Date.now(),
+          symptom: '',
+          stepNumber: 0,
+          outcome: 'started'
+        };
+      }
+
+      if (symptomChoices.has(choice)) state.symptom = choice;
+      state.stepNumber = Number(state.stepNumber || 0) + 1;
+      state.lastChoice = choice;
+      state.lastPanel = panel;
+      if (choice === 'reset') state.outcome = 'reset';
+      else if (choice.includes('_not_fixed')) state.outcome = 'retrying';
+      else if (choice.endsWith('_failed')) state.outcome = 'offer';
+      else if (choice.endsWith('_fixed') || choice.endsWith('_fixed_second')) state.outcome = 'resolved';
+      else state.outcome = choice === 'start_check' ? 'started' : 'in_progress';
+      writeState(state);
+
       const data = {
-        page_path: window.location.pathname,
+        diagnostic_session_id: state.sessionId,
         diagnostic_choice: choice,
-        diagnostic_panel: panel
+        diagnostic_panel: panel,
+        diagnostic_symptom: state.symptom || '',
+        diagnostic_outcome: state.outcome,
+        diagnostic_step_number: state.stepNumber,
+        diagnostic_elapsed_sec: Math.max(0, Math.round((Date.now() - state.startedAt) / 1000)),
+        button_text: buttonText.trim().replace(/\s+/g, ' ').slice(0, 100)
       };
-      if (typeof window.gtag === 'function') window.gtag('event', 'vpn_diagnostic_action', data);
-      if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', 'vpn_diagnostic_action', data);
+      sendEvent('vpn_diagnostic_action', data);
+      sendEvent(eventForChoice(choice), data);
     };
 
     const showPanel = (name, shouldFocus = true) => {
@@ -278,7 +346,7 @@
       if (reset) {
         window.clearTimeout(transitionTimer);
         showPanel('start');
-        track('reset', 'start');
+        track('reset', 'start', reset.textContent || '');
         return;
       }
 
@@ -287,7 +355,7 @@
       const next = button.dataset.diagnosticNext;
       if (!next) return;
       const choice = button.dataset.diagnosticChoice || 'next';
-      track(choice, next);
+      track(choice, next, button.textContent || '');
       if (next === 'success') showPanel(next);
       else transitionTo(next, choice);
     });
