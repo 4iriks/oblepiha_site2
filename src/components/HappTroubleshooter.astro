@@ -1,0 +1,295 @@
+<section class="scroll-mt-3 px-2 pb-8 sm:px-6 md:scroll-mt-24 md:pb-14" id="happ-diagnostic" data-happ-diagnostic>
+  <div class="mx-auto flex min-h-[calc(100svh-1rem)] max-w-5xl flex-col overflow-hidden rounded-[2.25rem] bg-primary shadow-2xl sm:min-h-0 md:rounded-[2.75rem]">
+    <div class="border-b border-white/10 px-6 py-6 text-backgroundLight md:px-9 md:py-8">
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+        <div class="max-w-2xl">
+          <p class="text-xs font-extrabold uppercase tracking-[0.16em] text-accent">Проверка по симптомам</p>
+          <h2 class="mt-2 text-2xl font-black leading-tight md:text-4xl">Почему не работает Happ VPN?</h2>
+          <p class="mt-3 text-sm leading-relaxed text-white/65 md:text-base">Выберите, что видите на экране. Проверка ничего не меняет сама и не просит ссылку подписки.</p>
+        </div>
+        <button type="button" class="focus-ring hidden shrink-0 items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-white/15" data-diagnostic-reset data-diagnostic-header-reset>
+          <span class="material-symbols-outlined text-lg" aria-hidden="true">restart_alt</span>
+          Начать заново
+        </button>
+      </div>
+
+      <div class="mt-6 flex items-center gap-4" aria-live="polite">
+        <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+          <div class="h-full rounded-full bg-accent transition-[width] duration-300" style="width: 12%" data-diagnostic-bar></div>
+        </div>
+        <span class="min-w-28 text-right text-xs font-bold text-white/50" data-diagnostic-progress>Выбор проблемы</span>
+      </div>
+    </div>
+
+    <div class="flex flex-1 flex-col justify-center bg-card p-5 sm:p-7 md:p-9">
+      <div hidden class="py-16 text-center md:py-24" data-diagnostic-loading role="status" aria-live="polite">
+        <span class="mx-auto block h-11 w-11 animate-spin rounded-full border-4 border-primary/10 border-t-accent" aria-hidden="true"></span>
+        <p class="mt-5 text-lg font-black text-primary" data-diagnostic-loading-copy>Подбираем следующий шаг…</p>
+        <p class="mt-2 text-sm text-primary/50">Сверяем выбранный симптом с частыми причинами.</p>
+      </div>
+
+      <div class="py-5 text-center md:py-10" data-diagnostic-panel="start" data-progress="5" data-progress-label="Готов к проверке">
+        <p class="mx-auto max-w-xl text-sm leading-relaxed text-primary/55 md:text-base">Проверка займёт около минуты. Ничего устанавливать или отправлять нам не нужно.</p>
+        <button type="button" class="focus-ring group relative mx-auto mt-7 flex h-44 w-44 items-center justify-center rounded-full border-[10px] border-accent/15 bg-accent text-center text-xl font-black leading-tight text-white shadow-glow transition-all hover:scale-[1.03] hover:border-accent/25 hover:brightness-105 active:scale-[0.98] md:h-52 md:w-52 md:text-2xl" data-diagnostic-next="symptoms" data-diagnostic-choice="start_check">
+          <span class="absolute inset-2 rounded-full border border-white/20" aria-hidden="true"></span>
+          <span class="relative z-10 max-w-28">Проверить мой VPN</span>
+        </button>
+        <p class="mt-6 text-xs font-semibold text-primary/40">Ответьте, что происходит, и получите подходящий следующий шаг</p>
+      </div>
+
+      <div hidden data-diagnostic-panel="symptoms" data-progress="15" data-progress-label="Выбор проблемы">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Что происходит сейчас?</h3>
+        <p class="mt-2 leading-relaxed text-primary/60">Нажмите на самый похожий вариант. Если сомневаетесь, начните с «Подключено, но интернета нет».</p>
+        <div class="mt-6 grid gap-3 sm:grid-cols-2">
+          <button type="button" class="focus-ring group flex min-h-20 items-center justify-between gap-4 rounded-2xl border border-primary/8 bg-white/55 p-4 text-left font-bold text-primary transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white" data-diagnostic-next="subscription-1" data-diagnostic-choice="subscription_empty">
+            <span>Список серверов пуст</span><span class="material-symbols-outlined text-accent" aria-hidden="true">arrow_forward</span>
+          </button>
+          <button type="button" class="focus-ring group flex min-h-20 items-center justify-between gap-4 rounded-2xl border border-primary/8 bg-white/55 p-4 text-left font-bold text-primary transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white" data-diagnostic-next="connect-1" data-diagnostic-choice="connection_error">
+            <span>Не подключается или ошибка TUN</span><span class="material-symbols-outlined text-accent" aria-hidden="true">arrow_forward</span>
+          </button>
+          <button type="button" class="focus-ring group flex min-h-20 items-center justify-between gap-4 rounded-2xl border border-primary/8 bg-white/55 p-4 text-left font-bold text-primary transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white" data-diagnostic-next="traffic-1" data-diagnostic-choice="connected_no_internet">
+            <span>Подключено, но интернета нет</span><span class="material-symbols-outlined text-accent" aria-hidden="true">arrow_forward</span>
+          </button>
+          <button type="button" class="focus-ring group flex min-h-20 items-center justify-between gap-4 rounded-2xl border border-primary/8 bg-white/55 p-4 text-left font-bold text-primary transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white" data-diagnostic-next="app-1" data-diagnostic-choice="single_app">
+            <span>Работает только браузер или часть приложений</span><span class="material-symbols-outlined text-accent" aria-hidden="true">arrow_forward</span>
+          </button>
+          <button type="button" class="focus-ring group flex min-h-20 items-center justify-between gap-4 rounded-2xl border border-primary/8 bg-white/55 p-4 text-left font-bold text-primary transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:bg-white sm:col-span-2" data-diagnostic-next="unstable-1" data-diagnostic-choice="unstable">
+            <span>Подключается, но медленно или постоянно отключается</span><span class="material-symbols-outlined text-accent" aria-hidden="true">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="subscription-1" data-progress="45" data-progress-label="Проверка подписки">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Обновите подписку, не удаляя её</h3>
+        <ol class="mt-5 grid gap-3">
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">1.</strong><span>Выключите Happ и убедитесь, что обычный интернет работает.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">2.</strong><span>Очистите поиск и фильтры списка — подключения могут быть просто скрыты.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">3.</strong><span>Откройте меню подписки, нажмите обновление и подождите 10–15 секунд.</span></li>
+        </ol>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="subscription_fixed">Серверы появились</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="subscription-2" data-diagnostic-choice="subscription_not_fixed">Не помогло</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="subscription-2" data-progress="74" data-progress-label="Уточняем причину">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Проверьте сам доступ и ссылку</h3>
+        <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Проверьте у поставщика срок доступа и лимит устройств.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Скопируйте полную ссылку заново штатной кнопкой. Не публикуйте её.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Обновите существующий профиль по новой ссылке.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Повторите обновление через другую сеть: Wi‑Fi или мобильную.</li>
+        </ul>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="subscription_fixed_second">Теперь работает</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="offer" data-diagnostic-choice="subscription_failed">Всё ещё пусто</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="connect-1" data-progress="45" data-progress-label="Проверка запуска">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Освободите системное VPN-подключение</h3>
+        <ol class="mt-5 grid gap-3">
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">1.</strong><span>Полностью закройте другие VPN и прокси-программы.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">2.</strong><span>Обновите Happ и выйдите из него полностью, включая значок в трее на Windows.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">3.</strong><span>Перезагрузите устройство и попробуйте один сервер без собственных правил.</span></li>
+        </ol>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="connect_fixed">Подключилось</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="connect-2" data-diagnostic-choice="connect_not_fixed">Не помогло</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="connect-2" data-progress="74" data-progress-label="Уточняем причину">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Проверьте режим и системные разрешения</h3>
+        <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Дата и время должны определяться автоматически.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">На телефоне заново подтвердите системный запрос на VPN-профиль.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">На компьютере попробуйте TUN, затем Mixed/Proxy только для сравнения.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Сохраните точный текст ошибки или полный скриншот без ссылки подписки.</li>
+        </ul>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="connect_fixed_second">Теперь работает</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="offer" data-diagnostic-choice="connect_failed">Ошибка осталась</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="traffic-1" data-progress="45" data-progress-label="Проверка трафика">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Уберите три частые причины</h3>
+        <ol class="mt-5 grid gap-3">
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">1.</strong><span>Выберите другой сервер с числом ping, а не с Timeout.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">2.</strong><span>Верните DNS в автоматический режим и временно выключите свои правила direct/bypass.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">3.</strong><span>Отключитесь, подключитесь снова и откройте два разных сайта.</span></li>
+        </ol>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="traffic_fixed">Интернет появился</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="traffic-2" data-diagnostic-choice="traffic_not_fixed">Не помогло</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="traffic-2" data-progress="74" data-progress-label="Уточняем причину">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Сравните режим и сеть</h3>
+        <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">На компьютере включите TUN: Proxy может работать только в браузере.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Попробуйте Wi‑Fi вместо мобильной сети или наоборот.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Полностью перезапустите Happ после смены режима.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Убедитесь, что одновременно не работает второй VPN.</li>
+        </ul>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="traffic_fixed_second">Теперь работает</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="offer" data-diagnostic-choice="traffic_failed">Интернета всё ещё нет</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="app-1" data-progress="45" data-progress-label="Проверка приложения">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Направьте через VPN всё приложение</h3>
+        <ol class="mt-5 grid gap-3">
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">1.</strong><span>Включите Happ до запуска проблемного приложения.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">2.</strong><span>Полностью закройте приложение и откройте его заново.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">3.</strong><span>На компьютере используйте TUN, а не только Proxy; временно отключите исключения приложений.</span></li>
+        </ol>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="app_fixed">Приложение заработало</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="app-2" data-diagnostic-choice="app_not_fixed">Не помогло</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="app-2" data-progress="74" data-progress-label="Уточняем причину">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Отделите сбой приложения от подключения</h3>
+        <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Проверьте тот же сервис в браузере.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Смените сервер и заново откройте приложение.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Попробуйте другую сеть без изменения остальных настроек.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Если браузер работает, сохраните название приложения и режим Happ для поддержки.</li>
+        </ul>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="app_fixed_second">Теперь работает</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="offer" data-diagnostic-choice="app_failed">Проблема осталась</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="unstable-1" data-progress="45" data-progress-label="Проверка стабильности">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Исключите маршрут и энергосбережение</h3>
+        <ol class="mt-5 grid gap-3">
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">1.</strong><span>Выберите другой сервер и проверьте его в той же сети.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">2.</strong><span>На телефоне разрешите Happ работать в фоне без экономии батареи.</span></li>
+          <li class="flex gap-3 rounded-2xl bg-backgroundLight/75 p-4"><strong class="text-accent">3.</strong><span>Сравните Wi‑Fi и мобильную сеть, не меняя остальные настройки.</span></li>
+        </ol>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="unstable_fixed">Стало стабильно</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="unstable-2" data-diagnostic-choice="unstable_not_fixed">Не помогло</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="unstable-2" data-progress="74" data-progress-label="Уточняем причину">
+        <h3 class="text-xl font-black text-primary md:text-2xl" tabindex="-1">Проверьте соединение в одинаковых условиях</h3>
+        <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Перезагрузите устройство и обновите подписку.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Закройте фоновые загрузки и второй VPN.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Проверьте 5 минут один и тот же сценарий, а не только ping.</li>
+          <li class="rounded-2xl bg-backgroundLight/75 p-4">Запишите сервер, сеть и время сбоя — это поможет поддержке.</li>
+        </ul>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl bg-secondary px-5 py-3 font-black text-white hover:brightness-110" data-diagnostic-next="success" data-diagnostic-choice="unstable_fixed_second">Теперь стабильно</button>
+          <button type="button" class="focus-ring min-h-12 flex-1 rounded-2xl border border-primary/10 bg-white/60 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-next="offer" data-diagnostic-choice="unstable_failed">Сбои остались</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="success" data-progress="100" data-progress-label="Готово">
+        <div class="rounded-[1.75rem] border border-secondary/20 bg-secondary/5 p-6 md:p-8">
+          <span class="material-symbols-outlined text-4xl text-secondary" aria-hidden="true">check_circle</span>
+          <h3 class="mt-3 text-2xl font-black text-primary md:text-3xl" tabindex="-1">Отлично — больше ничего не сбрасывайте</h3>
+          <p class="mt-3 max-w-2xl leading-relaxed text-primary/65">Проверьте нужный сайт или приложение несколько минут. Если сбой повторится, запомните сервер, тип сети и последний сработавший шаг — так причину будет проще найти.</p>
+          <button type="button" class="focus-ring mt-6 rounded-2xl border border-primary/10 bg-white/70 px-5 py-3 font-bold text-primary hover:bg-white" data-diagnostic-reset>Проверить другой симптом</button>
+        </div>
+      </div>
+
+      <div hidden data-diagnostic-panel="offer" data-progress="100" data-progress-label="Нужна контрольная проверка">
+        <div class="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-primary to-[#2d201c] p-6 text-backgroundLight md:p-9">
+          <div class="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent/20 blur-[70px]"></div>
+          <div class="relative z-10 max-w-3xl">
+            <p class="text-xs font-extrabold uppercase tracking-[0.15em] text-accent">После двух проверок</p>
+            <h3 class="mt-3 text-2xl font-black md:text-4xl" tabindex="-1">Проверьте на свежей подписке</h3>
+            <p class="mt-4 leading-relaxed text-white/70 md:text-lg">Так можно отделить проблему Happ или устройства от проблемы старой подписки. У Облепихи есть пробный доступ за 10 ₽ на 3 дня, а поддержка поможет добавить ссылку и разобрать ошибку по скриншоту.</p>
+            <p class="mt-3 text-sm leading-relaxed text-white/50">Мы не обещаем работу в любой сети без исключений — для этого и нужен недорогой тест перед обычной подпиской.</p>
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a href="https://t.me/oblepiha_vpn_bot?start=seo_happ_diag" target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster="happ_fix" data-position="diagnostic_result" data-offer="trial" class="focus-ring inline-flex min-h-13 items-center justify-center rounded-2xl bg-accent px-6 py-3.5 font-black text-white shadow-glow transition-all hover:-translate-y-0.5 hover:brightness-110">Попробовать за 10 ₽</a>
+              <button type="button" class="focus-ring min-h-13 rounded-2xl border border-white/10 bg-white/10 px-6 py-3.5 font-bold text-white hover:bg-white/15" data-diagnostic-reset>Проверить другой симптом</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector('[data-happ-diagnostic]');
+    if (!root) return;
+
+    const panels = Array.from(root.querySelectorAll('[data-diagnostic-panel]'));
+    const progress = root.querySelector('[data-diagnostic-progress]');
+    const bar = root.querySelector('[data-diagnostic-bar]');
+    const headerReset = root.querySelector('[data-diagnostic-header-reset]');
+    const loading = root.querySelector('[data-diagnostic-loading]');
+    const loadingCopy = root.querySelector('[data-diagnostic-loading-copy]');
+    let transitionTimer;
+
+    const track = (choice, panel) => {
+      const data = {
+        page_path: window.location.pathname,
+        diagnostic_choice: choice,
+        diagnostic_panel: panel
+      };
+      if (typeof window.gtag === 'function') window.gtag('event', 'vpn_diagnostic_action', data);
+      if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', 'vpn_diagnostic_action', data);
+    };
+
+    const showPanel = (name, shouldFocus = true) => {
+      const next = panels.find((panel) => panel.dataset.diagnosticPanel === name);
+      if (!next) return;
+      if (loading) loading.hidden = true;
+      panels.forEach((panel) => { panel.hidden = panel !== next; });
+      const value = next.dataset.progress || '12';
+      const label = next.dataset.progressLabel || 'Проверка';
+      if (bar) bar.style.width = `${value}%`;
+      if (progress) progress.textContent = label;
+      if (headerReset) headerReset.classList.toggle('hidden', name === 'start');
+      if (headerReset) headerReset.classList.toggle('flex', name !== 'start');
+      if (shouldFocus) next.querySelector('h3')?.focus({ preventScroll: true });
+    };
+
+    const transitionTo = (name, choice) => {
+      window.clearTimeout(transitionTimer);
+      panels.forEach((panel) => { panel.hidden = true; });
+      if (loading) loading.hidden = false;
+      if (loadingCopy) {
+        loadingCopy.textContent = choice.includes('not_fixed') || choice.includes('failed')
+          ? 'Исключаем следующую причину…'
+          : 'Подбираем следующий шаг…';
+      }
+      if (progress) progress.textContent = 'Короткий анализ';
+      transitionTimer = window.setTimeout(() => showPanel(name), 650);
+    };
+
+    root.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) return;
+      const reset = event.target.closest('[data-diagnostic-reset]');
+      if (reset) {
+        window.clearTimeout(transitionTimer);
+        showPanel('start');
+        track('reset', 'start');
+        return;
+      }
+
+      const button = event.target.closest('[data-diagnostic-next]');
+      if (!button) return;
+      const next = button.dataset.diagnosticNext;
+      if (!next) return;
+      const choice = button.dataset.diagnosticChoice || 'next';
+      track(choice, next);
+      if (next === 'success') showPanel(next);
+      else transitionTo(next, choice);
+    });
+  })();
+</script>

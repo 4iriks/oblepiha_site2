@@ -64,6 +64,11 @@ const structuredData = [
             <a href="https://t.me/oblepiha_vpn_bot?start=seo_home" target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster="home" data-position="hero" data-offer="trial" class="focus-ring flex h-16 w-full items-center justify-center rounded-2xl bg-primary text-xl font-bold text-backgroundLight shadow-soft transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-glow">Попробовать за 10 ₽</a>
             <a href="#pricing" class="focus-ring self-center rounded-lg text-sm font-bold text-primary/60 transition-colors hover:text-accent lg:self-start">Сначала посмотреть тарифы</a>
             <span class="flex items-center gap-2 text-sm font-semibold text-secondary md:text-base"><span class="material-symbols-outlined text-xl">verified_user</span> 10 ₽ за 3 дня полного доступа</span>
+            <nav aria-label="Быстрая помощь" class="mt-2 grid w-full grid-cols-1 gap-2 text-sm sm:grid-cols-3">
+              <a href="/happ-vpn/" data-help-link data-position="home_hero" class="focus-ring rounded-xl border border-primary/10 bg-white/60 px-3 py-2.5 text-center font-bold text-primary/70 transition-colors hover:border-accent/30 hover:text-accent">Уже есть Happ</a>
+              <a href="/happ-vpn/ne-rabotaet/" data-help-link data-position="home_hero" class="focus-ring rounded-xl border border-primary/10 bg-white/60 px-3 py-2.5 text-center font-bold text-primary/70 transition-colors hover:border-accent/30 hover:text-accent">Happ не работает</a>
+              <a href="/help/" data-help-link data-position="home_hero" class="focus-ring rounded-xl border border-primary/10 bg-white/60 px-3 py-2.5 text-center font-bold text-primary/70 transition-colors hover:border-accent/30 hover:text-accent">Все инструкции</a>
+            </nav>
           </div>
         </div>
 
@@ -108,7 +113,7 @@ const structuredData = [
         </div>
         <nav class="mb-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Разделы помощи">
           {helpRoutes.map((route) => (
-            <a href={route.href} class="focus-ring group flex items-center gap-3 rounded-[1.35rem] border border-primary/5 bg-white/45 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/25 hover:bg-card hover:shadow-card">
+            <a href={route.href} data-help-link data-position="home_help_category" class="focus-ring group flex items-center gap-3 rounded-[1.35rem] border border-primary/5 bg-white/45 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/25 hover:bg-card hover:shadow-card">
               <span class="material-symbols-outlined text-2xl text-accent">{route.icon}</span>
               <span>
                 <span class="block font-black text-primary transition-colors group-hover:text-accent">{route.title}</span>
@@ -119,7 +124,7 @@ const structuredData = [
         </nav>
         <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {guides.map((guide) => guide && (
-            <a href={`/${guide.slug}/`} class="focus-ring group rounded-[2rem] border border-primary/5 bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:border-accent/25 hover:shadow-soft">
+            <a href={`/${guide.slug}/`} data-help-link data-position="home_help_guide" class="focus-ring group rounded-[2rem] border border-primary/5 bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:border-accent/25 hover:shadow-soft">
               <span class="material-symbols-outlined text-3xl text-accent">{guide.icon}</span>
               <h3 class="mt-5 text-xl font-black leading-snug text-primary transition-colors group-hover:text-accent">{guide.h1}</h3>
               <p class="mt-3 text-sm leading-relaxed text-primary/60">{guide.quickAnswer}</p>

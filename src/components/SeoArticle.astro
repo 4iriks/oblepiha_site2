@@ -3,6 +3,7 @@ import type { ContentPage } from '../data/pages';
 import { categoryLabels, pageBySlug } from '../data/pages';
 import Pricing from './Pricing.astro';
 import CtaBlock from './CtaBlock.astro';
+import HappTroubleshooter from './HappTroubleshooter.astro';
 
 interface Props {
   page: ContentPage;
@@ -11,10 +12,11 @@ interface Props {
 const { page } = Astro.props;
 const relatedPages = page.related.map((slug) => pageBySlug.get(slug)).filter(Boolean) as ContentPage[];
 const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.slug);
+const hasTroubleshooter = page.interactive === 'happ-troubleshooter';
 ---
 
 <main class="relative z-10 w-full">
-  <section class="px-4 pb-12 pt-8 sm:px-6 md:pb-16 md:pt-12">
+  <section class:list={['px-4 sm:px-6', hasTroubleshooter ? 'pb-6 pt-5 md:pb-10 md:pt-9' : 'pb-12 pt-8 md:pb-16 md:pt-12']}>
     <div class="mx-auto max-w-5xl">
       <nav aria-label="Хлебные крошки" class="mb-7 flex flex-wrap items-center gap-2 text-sm font-semibold text-primary/50">
         <a href="/" class="transition-colors hover:text-accent">Главная</a>
@@ -24,7 +26,7 @@ const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.s
         <span class="text-primary/80">{page.h1}</span>
       </nav>
 
-      <div class="relative overflow-hidden rounded-[2.5rem] border border-primary/5 bg-card p-7 shadow-soft sm:p-10 md:rounded-[3rem] md:p-14">
+      <div class:list={['relative overflow-hidden rounded-[2.5rem] border border-primary/5 bg-card shadow-soft md:rounded-[3rem]', hasTroubleshooter ? 'p-6 sm:p-8 md:p-11' : 'p-7 sm:p-10 md:p-14']}>
         <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-accent/10 blur-[85px]"></div>
         <div class="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-secondary/10 blur-[85px]"></div>
         <div class="relative z-10">
@@ -32,8 +34,8 @@ const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.s
             <span class="material-symbols-outlined text-lg">{page.icon}</span>
             {page.eyebrow}
           </div>
-          <h1 class="max-w-4xl text-4xl font-black leading-[1.05] tracking-tight text-primary sm:text-5xl md:text-6xl">{page.h1}</h1>
-          <p class="mt-6 max-w-3xl font-body text-lg leading-relaxed text-primary/70 md:text-xl">{page.intro}</p>
+          <h1 class:list={['max-w-4xl font-black leading-[1.05] tracking-tight text-primary', hasTroubleshooter ? 'text-3xl sm:text-4xl md:text-5xl' : 'text-4xl sm:text-5xl md:text-6xl']}>{page.h1}</h1>
+          <p class:list={['max-w-3xl font-body leading-relaxed text-primary/70', hasTroubleshooter ? 'mt-4 text-base md:text-lg' : 'mt-6 text-lg md:text-xl']}>{page.intro}</p>
           {page.heroActions && page.heroActions.length > 0 && (
             <div class="mt-7 flex flex-col gap-3 sm:flex-row">
               {page.heroActions.map((action) => {
@@ -54,6 +56,8 @@ const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.s
       </div>
     </div>
   </section>
+
+  {hasTroubleshooter && <HappTroubleshooter />}
 
   <section class="px-4 pb-10 sm:px-6 md:pb-14">
     <div class="mx-auto max-w-5xl rounded-[2rem] border border-accent/15 bg-white/45 p-6 shadow-card md:p-8">

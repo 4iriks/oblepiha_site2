@@ -94,18 +94,70 @@ const jsonLd = structuredData ? JSON.stringify(structuredData) : undefined;
   <body>
     <slot />
     <script is:inline>
+      const attributionKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+      let attribution = {};
+
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const campaign = Object.fromEntries(
+          attributionKeys
+            .map((key) => [key, params.get(key)])
+            .filter(([, value]) => Boolean(value))
+        );
+
+        if (Object.keys(campaign).length > 0) {
+          let landingReferrer = 'direct';
+          try {
+            landingReferrer = document.referrer ? new URL(document.referrer).hostname : 'direct';
+          } catch {}
+
+          attribution = {
+            ...campaign,
+            landing_page: window.location.pathname,
+            landing_referrer: landingReferrer
+          };
+          sessionStorage.setItem('oblepiha_attribution', JSON.stringify(attribution));
+        } else {
+          const storedAttribution = sessionStorage.getItem('oblepiha_attribution');
+          attribution = storedAttribution ? JSON.parse(storedAttribution) : {};
+        }
+      } catch {
+        attribution = {};
+      }
+
       document.addEventListener('click', function (event) {
         if (!(event.target instanceof Element)) return;
         const link = event.target.closest('[data-seo-cta]');
-        if (!link) return;
-        const data = {
+        if (link) {
+          let startParam = '';
+          try {
+            startParam = new URL(link.href).searchParams.get('start') || '';
+          } catch {}
+
+          const data = {
+            page_path: window.location.pathname,
+            cluster: link.dataset.cluster || 'general',
+            cta_position: link.dataset.position || 'content',
+            offer: link.dataset.offer || 'subscription',
+            destination: 'telegram_bot',
+            start_param: startParam,
+            ...attribution
+          };
+          if (typeof window.gtag === 'function') window.gtag('event', 'seo_cta_click', data);
+          if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', 'seo_cta_click', data);
+          return;
+        }
+
+        const helpLink = event.target.closest('[data-help-link]');
+        if (!helpLink) return;
+        const helpData = {
           page_path: window.location.pathname,
-          cluster: link.dataset.cluster || 'general',
-          cta_position: link.dataset.position || 'content',
-          offer: link.dataset.offer || 'subscription'
+          target_path: helpLink.getAttribute('href') || '',
+          link_position: helpLink.dataset.position || 'content',
+          ...attribution
         };
-        if (typeof window.gtag === 'function') window.gtag('event', 'seo_cta_click', data);
-        if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', 'seo_cta_click', data);
+        if (typeof window.gtag === 'function') window.gtag('event', 'help_link_click', helpData);
+        if (typeof window.ym === 'function') window.ym(106091881, 'reachGoal', 'help_link_click', helpData);
       });
     </script>
   </body>
