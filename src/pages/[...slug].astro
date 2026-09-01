@@ -19,7 +19,7 @@ interface Props {
 const { page } = Astro.props;
 const canonical = `/${page.slug}/`;
 const published = '2026-08-31T00:00:00+03:00';
-const modified = '2026-08-31T00:00:00+03:00';
+const modified = page.modified ?? published;
 const articleUrl = `https://oblepiha-vpn.ru${canonical}`;
 
 const structuredData = [

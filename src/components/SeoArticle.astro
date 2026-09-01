@@ -34,6 +34,22 @@ const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.s
           </div>
           <h1 class="max-w-4xl text-4xl font-black leading-[1.05] tracking-tight text-primary sm:text-5xl md:text-6xl">{page.h1}</h1>
           <p class="mt-6 max-w-3xl font-body text-lg leading-relaxed text-primary/70 md:text-xl">{page.intro}</p>
+          {page.heroActions && page.heroActions.length > 0 && (
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+              {page.heroActions.map((action) => {
+                const isExternal = action.href.startsWith('http');
+                const isBot = action.href.startsWith('https://t.me/');
+                const classes = action.primary
+                  ? 'focus-ring inline-flex min-h-13 items-center justify-center rounded-2xl bg-primary px-6 py-3.5 font-black text-backgroundLight transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-glow'
+                  : 'focus-ring inline-flex min-h-13 items-center justify-center rounded-2xl border border-primary/10 bg-white/55 px-6 py-3.5 font-bold text-primary transition-all hover:border-accent/30 hover:bg-white';
+                return isBot ? (
+                  <a href={action.href} target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster={page.campaign} data-position="hero" data-offer="subscription" class={classes}>{action.label}</a>
+                ) : (
+                  <a href={action.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined} class={classes}>{action.label}</a>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -44,12 +60,31 @@ const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.s
       <div class="flex items-start gap-4">
         <span class="material-symbols-outlined mt-0.5 text-3xl text-accent">bolt</span>
         <div>
-          <h2 class="text-lg font-black text-primary md:text-xl">Короткий ответ</h2>
+          <h2 class="text-lg font-black text-primary md:text-xl">{page.quickTitle ?? 'Короткий ответ'}</h2>
           <p class="mt-2 text-base leading-relaxed text-primary/70 md:text-lg">{page.quickAnswer}</p>
         </div>
       </div>
     </div>
   </section>
+
+  {page.intentLinks && page.intentLinks.length > 0 && (
+    <section class="px-4 pb-10 sm:px-6 md:pb-14">
+      <div class="mx-auto max-w-5xl">
+        <p class="mb-3 text-sm font-extrabold uppercase tracking-[0.14em] text-primary/45">{page.intentTitle ?? 'Выберите нужный раздел'}</p>
+        <div class="grid gap-3 md:grid-cols-3">
+          {page.intentLinks.map((link) => (
+            <a href={link.href} class="focus-ring group rounded-[1.35rem] border border-primary/5 bg-card px-5 py-4 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/25 hover:shadow-soft">
+              <span class="flex items-center justify-between gap-3 font-black text-primary transition-colors group-hover:text-accent">
+                {link.title}
+                <span class="material-symbols-outlined text-xl">arrow_forward</span>
+              </span>
+              <span class="mt-1.5 block text-sm leading-relaxed text-primary/55">{link.description}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <div class="mx-auto grid max-w-7xl gap-8 px-4 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_280px] lg:gap-12">
     <article class="min-w-0">
@@ -81,6 +116,22 @@ const showPricing = ['happ-vpn', 'kupit-vpn', 'vpn-dlya-rossii'].includes(page.s
                   </li>
                 ))}
               </ul>
+            )}
+            {section.links && (
+              <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                {section.links.map((link) => {
+                  const isExternal = link.href.startsWith('http');
+                  return (
+                    <a href={link.href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined} class="focus-ring group rounded-2xl border border-primary/5 bg-backgroundLight/70 p-5 transition-all hover:-translate-y-0.5 hover:border-accent/25 hover:bg-white">
+                      <span class="flex items-center justify-between gap-3 font-black text-primary group-hover:text-accent">
+                        {link.title}
+                        <span class="material-symbols-outlined text-xl">{isExternal ? 'open_in_new' : 'arrow_forward'}</span>
+                      </span>
+                      <span class="mt-2 block text-sm leading-relaxed text-primary/60">{link.description}</span>
+                    </a>
+                  );
+                })}
+              </div>
             )}
             {section.diagnostics && (
               <div class="mt-6 grid gap-4">

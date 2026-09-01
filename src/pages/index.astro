@@ -7,14 +7,21 @@ import CtaBlock from '../components/CtaBlock.astro';
 import { pageBySlug } from '../data/pages';
 
 const faq = [
-  { q: 'Как быстро я получу доступ?', a: 'Мгновенно. Сразу после оплаты вы получите код доступа и простые инструкции по настройке в Telegram-боте. Это занимает меньше минуты.' },
+  { q: 'Как я получу доступ?', a: 'После оплаты бот покажет персональную ссылку подписки и инструкцию для вашего устройства. Ссылку нужно открыть в Happ или V2RayTun и включить подключение.' },
   { q: 'Что такое белые списки?', a: 'Список разрешённых ресурсов, которым разрешено работать, в то время как всё остальное блокируется. Наши алгоритмы позволяют обходить эти ограничения, возвращая вам доступ к привычным сервисам.' },
   { q: 'Какие устройства поддерживаются?', a: 'Мы поддерживаем iOS, Android, Windows, macOS и Android TV. Один аккаунт можно использовать на пяти устройствах.' },
   { q: 'Сколько устройств можно подключить?', a: 'Один аккаунт можно одновременно использовать на 5 различных устройствах без ограничения по объёму трафика.' },
 ];
 
-const guideSlugs = ['happ-vpn', 'happ-vpn/ne-rabotaet', 'v2raytun', 'vpn-dlya-youtube', 'vpn-dlya-iphone', 'vpn-ne-rabotaet'];
+const guideSlugs = ['happ-vpn', 'happ-vpn/ne-rabotaet', 'happ-vpn/kak-podklyuchit', 'vpn-rabotaet-no-internet', 'vpn-na-mobilnom-internete', 'kak-proverit-vpn'];
 const guides = guideSlugs.map((slug) => pageBySlug.get(slug)).filter(Boolean);
+
+const helpRoutes = [
+  { title: 'Happ', text: 'Подписка и настройка', href: '/help/#happ', icon: 'vpn_key' },
+  { title: 'VPN не работает', text: 'Найти причину', href: '/help/#problems', icon: 'build' },
+  { title: 'Устройства', text: 'Телефон, ПК и TV', href: '/help/#devices', icon: 'devices' },
+  { title: 'Сайты и приложения', text: 'Проблема в одном сервисе', href: '/help/#services', icon: 'apps' },
+];
 
 const structuredData = [
   {
@@ -49,12 +56,13 @@ const structuredData = [
       <section class="flex min-h-[calc(100vh-84px)] flex-col items-center justify-center gap-8 pb-16 pt-8 lg:min-h-0 lg:flex-row lg:gap-20 lg:pb-24 lg:pt-12">
         <div class="order-2 flex max-w-xl flex-col items-center gap-6 text-center lg:order-1 lg:items-start lg:text-left">
           <h1 class="text-[2.5rem] font-black leading-none tracking-tight text-primary md:text-[4rem] lg:text-[4.8rem]">
-            <span class="mb-2 block text-xl font-extrabold text-primary/80 md:text-3xl">Минимум настроек —</span>
-            <span class="block leading-[1.03] text-accent">максимум<br />комфорта.</span>
+            <span class="mb-2 block text-xl font-extrabold text-primary/80 md:text-3xl">VPN для пяти устройств —</span>
+            <span class="block leading-[1.03] text-accent">подключили<br />и пользуетесь.</span>
           </h1>
-          <p class="max-w-lg font-body text-lg font-medium leading-relaxed text-primary/70 md:text-xl">Простой и надёжный VPN-сервис с обходом белых списков. Подключение через Telegram и одна подписка для пяти устройств.</p>
+          <p class="max-w-lg font-body text-lg font-medium leading-relaxed text-primary/70 md:text-xl">Облепиха работает с Happ и V2RayTun. Подключение через Telegram, одна подписка для пяти устройств и VPN-сервис с обходом белых списков.</p>
           <div class="mt-2 flex w-full max-w-[400px] flex-col items-center gap-3 lg:items-start">
-            <a href="#pricing" class="focus-ring flex h-16 w-full items-center justify-center rounded-2xl bg-primary text-xl font-bold text-backgroundLight shadow-soft transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-glow">Начать</a>
+            <a href="https://t.me/oblepiha_vpn_bot?start=seo_home" target="_blank" rel="noopener noreferrer" data-seo-cta data-cluster="home" data-position="hero" data-offer="trial" class="focus-ring flex h-16 w-full items-center justify-center rounded-2xl bg-primary text-xl font-bold text-backgroundLight shadow-soft transition-all hover:-translate-y-0.5 hover:bg-accent hover:shadow-glow">Попробовать за 10 ₽</a>
+            <a href="#pricing" class="focus-ring self-center rounded-lg text-sm font-bold text-primary/60 transition-colors hover:text-accent lg:self-start">Сначала посмотреть тарифы</a>
             <span class="flex items-center gap-2 text-sm font-semibold text-secondary md:text-base"><span class="material-symbols-outlined text-xl">verified_user</span> 10 ₽ за 3 дня полного доступа</span>
           </div>
         </div>
@@ -72,8 +80,8 @@ const structuredData = [
         <div class="grid gap-6 md:grid-cols-3 lg:gap-8">
           <article class="rounded-[2.5rem] border border-primary/5 bg-card p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft">
             <span class="material-symbols-outlined flex h-16 w-16 items-center justify-center rounded-2xl bg-backgroundLight text-4xl text-accent">rocket_launch</span>
-            <h3 class="mt-5 text-xl font-extrabold text-primary">Мгновенное подключение</h3>
-            <p class="mt-3 leading-relaxed text-primary/60">Несколько шагов в боте — и готовая подписка уже добавлена на устройство.</p>
+            <h3 class="mt-5 text-xl font-extrabold text-primary">Подключение через бота</h3>
+            <p class="mt-3 leading-relaxed text-primary/60">Бот выдаёт персональную подписку и показывает инструкцию для Happ или V2RayTun.</p>
           </article>
           <article class="rounded-[2.5rem] border border-primary/5 bg-card p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft">
             <span class="material-symbols-outlined flex h-16 w-16 items-center justify-center rounded-2xl bg-backgroundLight text-4xl text-secondary">key</span>
@@ -82,7 +90,7 @@ const structuredData = [
           </article>
           <article class="rounded-[2.5rem] border border-primary/5 bg-card p-8 shadow-card transition-all hover:-translate-y-1 hover:shadow-soft">
             <span class="material-symbols-outlined flex h-16 w-16 items-center justify-center rounded-2xl bg-backgroundLight text-4xl text-primary">devices</span>
-            <h3 class="mt-5 text-xl font-extrabold text-primary">Без ограничений</h3>
+            <h3 class="mt-5 text-xl font-extrabold text-primary">До пяти устройств</h3>
             <p class="mt-3 leading-relaxed text-primary/60">Одна подписка для пяти устройств одновременно и без лимита по объёму трафика.</p>
           </article>
         </div>
@@ -94,10 +102,21 @@ const structuredData = [
         <div class="mb-9 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
             <p class="text-sm font-extrabold uppercase tracking-[0.18em] text-accent">Инструкции и решения</p>
-            <h2 class="mt-3 text-3xl font-black text-primary md:text-5xl">Поможем подключить и настроить</h2>
+            <h2 class="mt-3 text-3xl font-black text-primary md:text-5xl">Подключение и помощь без долгого поиска</h2>
           </div>
-          <a href="/help/" class="focus-ring inline-flex items-center gap-2 rounded-xl font-bold text-secondary transition-colors hover:text-accent">Все инструкции <span class="material-symbols-outlined">arrow_forward</span></a>
+          <a href="/help/" class="focus-ring inline-flex items-center gap-2 rounded-xl font-bold text-secondary transition-colors hover:text-accent">Открыть центр помощи <span class="material-symbols-outlined">arrow_forward</span></a>
         </div>
+        <nav class="mb-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Разделы помощи">
+          {helpRoutes.map((route) => (
+            <a href={route.href} class="focus-ring group flex items-center gap-3 rounded-[1.35rem] border border-primary/5 bg-white/45 p-4 transition-all hover:-translate-y-0.5 hover:border-accent/25 hover:bg-card hover:shadow-card">
+              <span class="material-symbols-outlined text-2xl text-accent">{route.icon}</span>
+              <span>
+                <span class="block font-black text-primary transition-colors group-hover:text-accent">{route.title}</span>
+                <span class="mt-0.5 block text-xs text-primary/50">{route.text}</span>
+              </span>
+            </a>
+          ))}
+        </nav>
         <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {guides.map((guide) => guide && (
             <a href={`/${guide.slug}/`} class="focus-ring group rounded-[2rem] border border-primary/5 bg-card p-6 shadow-card transition-all hover:-translate-y-1 hover:border-accent/25 hover:shadow-soft">
@@ -125,7 +144,7 @@ const structuredData = [
       </section>
 
       <div class="py-12 md:py-20">
-        <CtaBlock title="Готовы к новому уровню цифрового уюта?" text="Подключите до пяти устройств, получите инструкции в боте и проверьте сервис за 10 ₽." cluster="home" position="home_end" />
+        <CtaBlock title="Проверьте Облепиху на своих устройствах" text="Три дня стоят 10 ₽. Бот выдаст подписку и инструкцию, а если возникнет вопрос — там же можно написать в поддержку." cluster="home" position="home_end" />
       </div>
     </main>
     <SiteFooter />

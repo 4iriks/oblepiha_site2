@@ -3,12 +3,39 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
+import { pages, type ContentPage } from '../../data/pages';
 
 const problems = [
   { q: 'В Happ не появилась подписка', a: ['Отключите VPN и проверьте обычный интернет.', 'Удалите из Happ старую подписку, если она там осталась.', 'Снова откройте ссылку из бота и добавьте подписку.', 'Проверьте в боте, что доступ активен.'] },
   { q: 'VPN включён, но страницы не открываются', a: ['Убедитесь, что интернет работает без VPN.', 'Обновите подписку и выберите другое подключение.', 'В Happ на Windows переключите режим TUN/Proxy.', 'Откройте страницу проверки IP и убедитесь, что адрес изменился.'] },
   { q: 'Как отключить автопродление', a: ['Откройте mini app в боте.', 'На главном экране выберите «Автопродления».', 'Выберите активную подписку и отвяжите карту.'] },
 ];
+
+const quickRoutes = [
+  { title: 'Нужна подписка для Happ', text: 'Что даёт Облепиха, сколько стоит доступ и как начать.', href: '/happ-vpn/', icon: 'vpn_key' },
+  { title: 'Happ не работает', text: 'Разбираем подписку, ping, TUN, DNS и ситуацию без интернета.', href: '/happ-vpn/ne-rabotaet/', icon: 'build' },
+  { title: 'VPN включён, но интернета нет', text: 'Проверка без переустановки приложения и сброса телефона.', href: '/vpn-rabotaet-no-internet/', icon: 'wifi_off' },
+  { title: 'Подключить новое устройство', text: 'Инструкции для телефона, компьютера, телевизора и роутера.', href: '#devices', icon: 'devices' },
+];
+
+const hubGroups: Array<{
+  category: ContentPage['category'];
+  id: string;
+  title: string;
+  text: string;
+}> = [
+  { category: 'happ', id: 'happ', title: 'Happ', text: 'Подписка, установка, подключение и решение ошибок.' },
+  { category: 'v2raytun', id: 'v2raytun', title: 'V2RayTun', text: 'Как установить клиент, добавить подписку и запустить соединение.' },
+  { category: 'troubleshooting', id: 'problems', title: 'Если VPN не работает', text: 'Диагностика по конкретному симптому, без случайного перебора настроек.' },
+  { category: 'device', id: 'devices', title: 'Инструкции по устройствам', text: 'Телефоны, компьютеры, телевизоры и другие платформы.' },
+  { category: 'service', id: 'services', title: 'Сайты и приложения', text: 'Что проверить, если проблема возникает только в одном сервисе.' },
+  { category: 'guide', id: 'guides', title: 'Выбор и проверка VPN', text: 'Тарифы, установка, проверка соединения и полезные пояснения.' },
+  { category: 'company', id: 'about', title: 'Об Облепихе', text: 'Как устроены подписка, управление и поддержка.' },
+];
+
+const articleGroups = hubGroups
+  .map((group) => ({ ...group, items: pages.filter((page) => page.category === group.category) }))
+  .filter((group) => group.items.length > 0);
 ---
 
 <BaseLayout title="Помощь с подключением — Облепиха VPN" description="Инструкции по подключению Облепиха VPN, настройке Happ и V2RayTun, решению ошибок и управлению подпиской." canonical="/help/">
@@ -18,10 +45,22 @@ const problems = [
       <section class="rounded-[2.5rem] border border-primary/5 bg-card p-8 shadow-soft md:p-14">
         <p class="text-sm font-extrabold uppercase tracking-[0.17em] text-accent">Коротко и по делу</p>
         <h1 class="mt-4 text-4xl font-black text-primary md:text-6xl">Помощь с подключением</h1>
-        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-primary/70 md:text-xl">Основные шаги и решения частых проблем. Управление подпиской и связь с поддержкой остаются в Telegram-боте.</p>
+        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-primary/70 md:text-xl">Выберите, что хотите сделать: подключить Happ, настроить новое устройство или найти конкретную ошибку. Управление подпиской и связь с поддержкой остаются в Telegram-боте.</p>
       </section>
 
-      <section class="py-12 md:py-16">
+      <nav class="grid gap-4 py-10 md:grid-cols-2" aria-label="Популярные разделы помощи">
+        {quickRoutes.map((route) => (
+          <a href={route.href} class="focus-ring group flex items-start gap-4 rounded-[1.75rem] border border-primary/5 bg-card p-6 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/25 hover:shadow-soft">
+            <span class="material-symbols-outlined flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-2xl text-accent">{route.icon}</span>
+            <span>
+              <span class="flex items-center gap-2 text-lg font-black text-primary transition-colors group-hover:text-accent">{route.title}<span class="material-symbols-outlined text-lg">arrow_forward</span></span>
+              <span class="mt-1.5 block text-sm leading-relaxed text-primary/60">{route.text}</span>
+            </span>
+          </a>
+        ))}
+      </nav>
+
+      <section class="pb-12 md:pb-16">
         <h2 class="text-3xl font-black text-primary">Первое подключение</h2>
         <div class="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {[
@@ -65,6 +104,50 @@ const problems = [
           <h2 class="mt-4 text-2xl font-black text-primary">Роутер</h2>
           <p class="mt-3 leading-relaxed text-primary/65">Универсальной инструкции нет: поддержка зависит от модели и прошивки. Напишите в бот точную модель — поддержка подскажет совместимость.</p>
         </article>
+      </section>
+
+      <section class="pb-16" id="all-guides">
+        <div class="max-w-3xl">
+          <p class="text-sm font-extrabold uppercase tracking-[0.17em] text-accent">Все материалы</p>
+          <h2 class="mt-3 text-3xl font-black text-primary md:text-5xl">Инструкции по темам</h2>
+          <p class="mt-4 text-lg leading-relaxed text-primary/65">Здесь собраны все страницы сайта. Начните с подходящего раздела, а внутри инструкции переходите к следующему шагу по ссылкам.</p>
+        </div>
+
+        <nav class="mt-7 flex flex-wrap gap-2" aria-label="Разделы всех инструкций">
+          {articleGroups.map((group) => (
+            <a href={`#${group.id}`} class="focus-ring rounded-full border border-primary/10 bg-white/50 px-4 py-2 text-sm font-bold text-primary/70 transition-colors hover:border-accent/30 hover:text-accent">{group.title}</a>
+          ))}
+        </nav>
+
+        <div class="mt-10 flex flex-col gap-12">
+          {articleGroups.map((group) => (
+            <section id={group.id} class="scroll-mt-28">
+              <div class="flex flex-col gap-2 border-b border-primary/5 pb-5 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <h3 class="text-2xl font-black text-primary md:text-3xl">{group.title}</h3>
+                  <p class="mt-2 leading-relaxed text-primary/60">{group.text}</p>
+                </div>
+                <span class="text-sm font-bold text-primary/40">{group.items.length} {group.items.length === 1 ? 'материал' : group.items.length < 5 ? 'материала' : 'материалов'}</span>
+              </div>
+              <div class="mt-5 grid gap-4 md:grid-cols-2">
+                {group.items.map((page) => (
+                  <a href={`/${page.slug}/`} class="focus-ring group rounded-[1.5rem] border border-primary/5 bg-card p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/25 hover:shadow-soft">
+                    <span class="flex items-start gap-4">
+                      <span class="material-symbols-outlined mt-0.5 text-2xl text-accent">{page.icon}</span>
+                      <span class="min-w-0">
+                        <span class="flex items-start justify-between gap-3 font-black leading-snug text-primary transition-colors group-hover:text-accent">
+                          {page.h1}
+                          <span class="material-symbols-outlined shrink-0 text-lg">arrow_forward</span>
+                        </span>
+                        <span class="mt-2 block text-sm leading-relaxed text-primary/55">{page.description}</span>
+                      </span>
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </section>
 
       <CtaBlock title="Не получилось подключиться?" text="Напишите модель устройства, версию системы, город, провайдера, тип сети и приложите скриншот ошибки — так поддержка ответит быстрее." cluster="help" position="help_end" />
